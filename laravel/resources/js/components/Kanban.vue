@@ -134,7 +134,7 @@ export default {
         }
     },
     methods: {
-        // API接続（一覧取得）
+        // API接続（カテゴリー・タスク一覧取得）
         getCategories() {
             axios.get('/api/categories')
                 .then((res) => {
@@ -254,7 +254,7 @@ export default {
         }
     },
     mounted() {
-        // API接続（一覧取得）
+        // API接続（カテゴリー・タスク一覧取得）
         this.getCategories();
         this.getTasks();
     },
