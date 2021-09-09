@@ -19,6 +19,6 @@ use Illuminate\Http\Request;
 
 Route::get('/categories', 'CategoriesController@index');
 Route::post('/categories', 'CategoriesController@store');
-Route::put('/categories/{category}', 'CategoryController@update');
+Route::put('/categories/{category}', 'CategoriesController@update');
 
 Route::get('/tasks', 'TasksController@index');
