@@ -218,6 +218,11 @@ export default {
         categoryNameUpdate: function(category_name, category_id) {
             let update_category = this.categories.find(element => element.id === category_id);
             update_category.name = category_name;
+            // API接続（カテゴリー名更新）
+            axios.put('/api/categories/' + category_id, update_category)
+                .then((res) => {
+                    this.$router.push({name: 'kanban'}, () => {});
+                });
         },
         // API接続（カテゴリー追加）
         apiCategoryAdd: function() {
@@ -227,12 +232,9 @@ export default {
                 });
         },
         // API接続（カテゴリー名更新）
-        apiCategoryUpdate: function() {
-            axios.put('/api/categories/' + this.category.id)
-                .then((res) => {
-                    this.$router.push({name: 'kanban'}, () => {});
-                });
-        },
+        // apiCategoryUpdate: function(category_id) {
+        //     axios.put('/api/categories/' + category_id);
+        // },
         // タスク追加・更新
         taskAdd(task_name, category_id) {
             this.tasks.push({

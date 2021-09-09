@@ -19,9 +19,13 @@ class CategoriesController extends Controller
     
     }
 
-    public function update(Request $request, Category $category) {
+    public function update(Request $request, $update_category) {
 
-        $category->update($request->all());
+        $category = Category::find($update_category);
+        $category->name = $request->name;
+        $category->collapsed = 1;
+        $category->save();
+        // update($request->all());
 
         return $category;
     }

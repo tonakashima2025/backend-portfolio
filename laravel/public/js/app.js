@@ -2736,7 +2736,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    // API接続（一覧取得）
+    // API接続（カテゴリー・タスク一覧取得）
     getCategories: function getCategories() {
       var _this = this;
 
@@ -2780,11 +2780,11 @@ __webpack_require__.r(__webpack_exports__);
         this.categories.splice(addIndex, 0, this.category);
       } else {
         if (this.task.category_id !== overCategory.id && this.type === 'typeTask') {
-          var tasks = this.tasks.filter(function (task) {
+          var _tasks = this.tasks.filter(function (task) {
             return task.category_id === overCategory.id;
           });
 
-          if (tasks.length === 0) {
+          if (_tasks.length === 0) {
             this.task.category_id = overCategory.id;
           }
         }
@@ -2827,21 +2827,33 @@ __webpack_require__.r(__webpack_exports__);
       this.show_category_input = false;
     },
     categoryNameUpdate: function categoryNameUpdate(category_name, category_id) {
+      var _this5 = this;
+
       var update_category = this.categories.find(function (element) {
         return element.id === category_id;
       });
-      update_category.name = category_name;
-    },
-    // API接続（カテゴリー追加）
-    apiCategoryAdd: function apiCategoryAdd() {
-      var _this5 = this;
+      update_category.name = category_name; // API接続（カテゴリー名更新）
 
-      axios.post('/api/categories', this.category).then(function (res) {
+      axios.put('/api/categories/' + category_id, update_category).then(function (res) {
         _this5.$router.push({
           name: 'kanban'
         }, function () {});
       });
     },
+    // API接続（カテゴリー追加）
+    apiCategoryAdd: function apiCategoryAdd() {
+      var _this6 = this;
+
+      axios.post('/api/categories', this.category).then(function (res) {
+        _this6.$router.push({
+          name: 'kanban'
+        }, function () {});
+      });
+    },
+    // API接続（カテゴリー名更新）
+    // apiCategoryUpdate: function(category_id) {
+    //     axios.put('/api/categories/' + category_id);
+    // },
     // タスク追加・更新
     taskAdd: function taskAdd(task_name, category_id) {
       this.tasks.push({
@@ -2852,32 +2864,46 @@ __webpack_require__.r(__webpack_exports__);
     },
     openModal: function openModal(category, task) {
       this.modal = true;
-      this.category = category;
-      Object.assign(this.form, task);
+      this.category = category; // Object.assign(this.form, task);
+
+      this.form.id = task.id;
+      this.form.category_id = task.category_id;
+      this.form.name = task.name;
+      this.form.start_date = task.start_date;
+      this.form.end_date = task.end_date;
+      this.form.incharge_user = task.incharge_user;
+      this.form.percentage = task.percentage;
     },
     taskUpdate: function taskUpdate() {
-      var _this6 = this;
+      var _this7 = this;
 
       var task = this.tasks.find(function (task) {
-        return task.id === _this6.form.id;
-      });
-      Object.assign(task, this.form);
+        return task.id === _this7.form.id;
+      }); // Object.assign(task, this.form);
+
+      tasks.id = this.form.id;
+      tasks.category_id = this.form.category_id;
+      tasks.name = this.form.name;
+      tasks.start_date = this.form.start_date;
+      tasks.end_date = this.form.end_date;
+      tasks.incharge_user = this.form.incharge_user;
+      tasks.percentage = this.form.percentage;
       this.modal = false;
     }
   },
   mounted: function mounted() {
-    // API接続（一覧取得）
+    // API接続（カテゴリー・タスク一覧取得）
     this.getCategories();
     this.getTasks();
   },
   computed: {
     displayCategories: function displayCategories() {
-      var _this7 = this;
+      var _this8 = this;
 
       var categories = [];
       var tasks = "";
       this.categories.map(function (category) {
-        tasks = _this7.tasks.filter(function (task) {
+        tasks = _this8.tasks.filter(function (task) {
           return task.category_id === category.id;
         });
         categories.push({
