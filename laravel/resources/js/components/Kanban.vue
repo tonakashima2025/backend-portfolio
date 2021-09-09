@@ -133,7 +133,7 @@ export default {
         }
     },
     methods: {
-        // API接続（一覧取得）
+        // API接続（カテゴリー・タスク一覧取得）
         getCategories() {
             axios.get('/api/categories')
                 .then((res) => {
@@ -218,6 +218,11 @@ export default {
         categoryNameUpdate: function(category_name, category_id) {
             let update_category = this.categories.find(element => element.id === category_id);
             update_category.name = category_name;
+            // API接続（カテゴリー名更新）
+            axios.put('/api/categories/' + category_id, update_category)
+                .then((res) => {
+                    this.$router.push({name: 'kanban'}, () => {});
+                });
         },
         // API接続（カテゴリー追加）
         apiCategoryAdd: function() {
@@ -226,6 +231,10 @@ export default {
                     this.$router.push({name: 'kanban'}, () => {});
                 });
         },
+        // API接続（カテゴリー名更新）
+        // apiCategoryUpdate: function(category_id) {
+        //     axios.put('/api/categories/' + category_id);
+        // },
         // タスク追加・更新
         taskAdd(task_name, category_id) {
             this.tasks.push({
@@ -237,16 +246,32 @@ export default {
         openModal(category, task) {
             this.modal = true;
             this.category = category;
-            Object.assign(this.form, task);
+            // Object.assign(this.form, task);
+            this.form.id = task.id;
+            this.form.category_id = task.category_id;
+            this.form.name = task.name;
+            this.form.start_date = task.start_date;
+            this.form.end_date = task.end_date;
+            this.form.incharge_user = task.incharge_user;
+            this.form.percentage = task.percentage;
+
         },
         taskUpdate() {
             let task = this.tasks.find(task => task.id === this.form.id);
-            Object.assign(task, this.form);
+            // Object.assign(task, this.form);
+            tasks.id = this.form.id;
+            tasks.category_id = this.form.category_id;
+            tasks.name = this.form.name;
+            tasks.start_date = this.form.start_date;
+            tasks.end_date = this.form.end_date;
+            tasks.incharge_user = this.form.incharge_user;
+            tasks.percentage = this.form.percentage;
+            
             this.modal = false;
         }
     },
     mounted() {
-        // API接続（一覧取得）
+        // API接続（カテゴリー・タスク一覧取得）
         this.getCategories();
         this.getTasks();
     },
