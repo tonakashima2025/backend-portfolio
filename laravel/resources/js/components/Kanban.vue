@@ -227,6 +227,13 @@ export default {
                     this.$router.push({name: 'kanban'}, () => {});
                 });
         },
+        // API接続（カテゴリー名更新）
+        apiCategoryUpdate: function() {
+            axios.put('/api/categories/' + this.category.id)
+                .then((res) => {
+                    this.$router.push({name: 'kanban'}, () => {});
+                });
+        },
         // タスク追加・更新
         taskAdd(task_name, category_id) {
             this.tasks.push({
