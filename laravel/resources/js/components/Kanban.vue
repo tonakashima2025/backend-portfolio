@@ -115,7 +115,6 @@ export default {
             // DBデータ
             categories: [],
             tasks: [],
-
             category: {},
             task: '',
             type: '',
@@ -291,7 +290,6 @@ export default {
     }
 }
 </script>
-
 
 <style scoped>
 .base {
