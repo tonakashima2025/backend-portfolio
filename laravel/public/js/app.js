@@ -2780,11 +2780,11 @@ __webpack_require__.r(__webpack_exports__);
         this.categories.splice(addIndex, 0, this.category);
       } else {
         if (this.task.category_id !== overCategory.id && this.type === 'typeTask') {
-          var _tasks = this.tasks.filter(function (task) {
+          var tasks = this.tasks.filter(function (task) {
             return task.category_id === overCategory.id;
           });
 
-          if (_tasks.length === 0) {
+          if (tasks.length === 0) {
             this.task.category_id = overCategory.id;
           }
         }
@@ -2877,18 +2877,24 @@ __webpack_require__.r(__webpack_exports__);
     taskUpdate: function taskUpdate() {
       var _this7 = this;
 
-      var task = this.tasks.find(function (task) {
+      var update_task = this.tasks.find(function (task) {
         return task.id === _this7.form.id;
       }); // Object.assign(task, this.form);
+      // update_task.id = this.form.id;
+      // update_task.category_id = this.form.category_id;
+      // update_task.name = this.form.name;
 
-      tasks.id = this.form.id;
-      tasks.category_id = this.form.category_id;
-      tasks.name = this.form.name;
-      tasks.start_date = this.form.start_date;
-      tasks.end_date = this.form.end_date;
-      tasks.incharge_user = this.form.incharge_user;
-      tasks.percentage = this.form.percentage;
-      this.modal = false;
+      update_task.start_date = this.form.start_date;
+      update_task.end_date = this.form.end_date;
+      update_task.incharge_user = this.form.incharge_user;
+      update_task.percentage = this.form.percentage;
+      this.modal = false; // API接続（タスク更新）
+
+      axios.put('/api/tasks/' + update_task.id, update_task).then(function (res) {
+        _this7.$router.push({
+          name: 'kanban'
+        }, function () {});
+      });
     }
   },
   mounted: function mounted() {
