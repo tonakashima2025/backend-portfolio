@@ -259,21 +259,22 @@ export default {
         taskUpdate() {
             let update_task = this.tasks.find(task => task.id === this.form.id);
             // Object.assign(task, this.form);
-            update_task.id = this.form.id;
-            update_task.category_id = this.form.category_id;
-            update_task.name = this.form.name;
+            // update_task.id = this.form.id;
+            // update_task.category_id = this.form.category_id;
+            // update_task.name = this.form.name;
             update_task.start_date = this.form.start_date;
             update_task.end_date = this.form.end_date;
             update_task.incharge_user = this.form.incharge_user;
             update_task.percentage = this.form.percentage;
 
+            this.modal = false;
+
             // API接続（タスク更新）
-            axios.put('/api/tasks/' + task.id, update_task)
+            axios.put('/api/tasks/' + update_task.id, update_task)
                 .then((res) => {
                     this.$router.push({name: 'kanban'}, () => {});
                 });
             
-            this.modal = false;
         }
     },
     mounted() {
