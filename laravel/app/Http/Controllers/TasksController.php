@@ -32,9 +32,9 @@ class TasksController extends Controller
         return $task;
     }
     
-    public function delete($form_id) {
+    public function delete($task_id) {
         
-        $task = Task::find($form_id);        
+        $task = Task::find($task_id);        
         $task->delete();
     
         return $task;
