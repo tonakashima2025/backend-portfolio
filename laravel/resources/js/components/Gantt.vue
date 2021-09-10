@@ -163,11 +163,11 @@
                             </option>
                         </select>
                     </div>
-                    <div class="my-4">
+                    <!-- <div class="my-4">
                         <label for="" class="text-xs mr-2">ID：</label>
                         <input type="number" class="text-xs border rounded-lg px-4 py-2"
                             v-model="form.id">
-                    </div>
+                    </div> -->
                     <div class="my-4">
                         <label for="" class="text-xs mr-2">タスク名：</label>
                         <input type="text" class="text-xs border rounded-lg px-4 py-2"
@@ -503,7 +503,7 @@ export default {
             let category = this.categories.find(category => category.id === category_id);
             category.collapsed ? category.collapsed = false : category.collapsed = true;
         },
-        // タスク追加・更新・削除
+        // タスク追加
         addTask() {
             this.create_mode = true;
             this.form = {};
@@ -511,9 +511,23 @@ export default {
         },
         saveTask() {
             this.tasks.push(this.form);
+            // API接続（タスク追加）
+            axios.post('/api/tasks', this.form)
+                .then((res) => {
+                    this.$router.push({name: 'gantt'}, () => {});
+                });
+
             this.form = {};
             this.show = false;
         },
+        // API接続（タスク追加）
+        // apiAddTask() {
+        //     axios.post('/api/tasks', this.task)
+        //         .then((res) => {
+        //             this.$router.push({name: 'kanban'}, () => {});
+        //         });
+        // },
+        // タスク更新
         editTask(task) {
             this.create_mode = false;
             this.show = true;
@@ -525,6 +539,7 @@ export default {
             this.form = {};
             this.show = false;
         },
+        // タスク削除
         deleteTask(form_id) {
             let deleteIndex;
             this.tasks.map((task,index) => {
