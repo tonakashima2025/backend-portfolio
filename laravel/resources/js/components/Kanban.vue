@@ -68,8 +68,13 @@
                 <div class="overlay" v-show="modal" @click="modal=false">
                 </div>
                 <div class="content" v-show="modal">
-                    <div class="text font-bold">{{ form.name }}</div>
-                    <div class="text-xs">in カテゴリー{{ category.name }}</div>
+                    <div class="text-xs">カテゴリー{{ category.name }}</div>
+                    <div class="my-4">
+                        <label class="text-xs">
+                            タスク名
+                        </label>
+                        <input class="border rounded-lg px-4 py-2 text-xs" v-model="form.name">
+                    </div>
                     <div class="my-4">
                         <label class="text-xs">
                             担当者
@@ -260,7 +265,7 @@ export default {
             // Object.assign(task, this.form);
             // update_task.id = this.form.id;
             // update_task.category_id = this.form.category_id;
-            // update_task.name = this.form.name;
+            update_task.name = this.form.name;
             update_task.start_date = this.form.start_date;
             update_task.end_date = this.form.end_date;
             update_task.incharge_user = this.form.incharge_user;

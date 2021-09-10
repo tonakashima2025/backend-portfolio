@@ -2737,6 +2737,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2910,8 +2915,8 @@ __webpack_require__.r(__webpack_exports__);
       }); // Object.assign(task, this.form);
       // update_task.id = this.form.id;
       // update_task.category_id = this.form.category_id;
-      // update_task.name = this.form.name;
 
+      update_task.name = this.form.name;
       update_task.start_date = this.form.start_date;
       update_task.end_date = this.form.end_date;
       update_task.incharge_user = this.form.incharge_user;
@@ -62113,12 +62118,37 @@ var render = function() {
               staticClass: "content"
             },
             [
-              _c("div", { staticClass: "text font-bold" }, [
-                _vm._v(_vm._s(_vm.form.name))
+              _c("div", { staticClass: "text-xs" }, [
+                _vm._v("カテゴリー" + _vm._s(_vm.category.name))
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "text-xs" }, [
-                _vm._v("in カテゴリー" + _vm._s(_vm.category.name))
+              _c("div", { staticClass: "my-4" }, [
+                _c("label", { staticClass: "text-xs" }, [
+                  _vm._v(
+                    "\n                        タスク名\n                    "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.name,
+                      expression: "form.name"
+                    }
+                  ],
+                  staticClass: "border rounded-lg px-4 py-2 text-xs",
+                  domProps: { value: _vm.form.name },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.form, "name", $event.target.value)
+                    }
+                  }
+                })
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "my-4" }, [
