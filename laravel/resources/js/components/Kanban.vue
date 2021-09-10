@@ -265,7 +265,7 @@ export default {
             // Object.assign(task, this.form);
             // update_task.id = this.form.id;
             // update_task.category_id = this.form.category_id;
-            // update_task.name = this.form.name;
+            update_task.name = this.form.name;
             update_task.start_date = this.form.start_date;
             update_task.end_date = this.form.end_date;
             update_task.incharge_user = this.form.incharge_user;
