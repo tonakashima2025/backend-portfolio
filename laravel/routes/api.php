@@ -22,4 +22,5 @@ Route::post('/categories', 'CategoriesController@store');
 Route::put('/categories/{category_id}', 'CategoriesController@update');
 
 Route::get('/tasks', 'TasksController@index');
+Route::post('/tasks', 'TasksController@store');
 Route::put('/tasks/{task_id}', 'TasksController@update');
