@@ -2480,13 +2480,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.form = {};
       this.show = false;
     },
-    // API接続（タスク追加）
-    // apiAddTask() {
-    //     axios.post('/api/tasks', this.task)
-    //         .then((res) => {
-    //             this.$router.push({name: 'kanban'}, () => {});
-    //         });
-    // },
     // タスク更新
     editTask: function editTask(task) {
       this.create_mode = false;
