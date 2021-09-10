@@ -96,6 +96,7 @@
                     </button>
                     <button 
                         class="px-4 py-2 bg-red-500 hover:bg-red-700 text-white rounded-lg mr-2 font-bold text-xs"
+                        @click="taskDelete"
                     >
                         削除
                     </button>
@@ -273,6 +274,18 @@ export default {
                     this.$router.push({name: 'kanban'}, () => {});
                 });
             
+        },
+        // タスク削除
+        taskDelete() {
+            let deleteIndex;
+            this.tasks.map((task,index) => {
+                if(task.id === this.form.id) {
+                    deleteIndex = index;
+                }
+            });
+            this.tasks.splice(deleteIndex, 1);
+            
+            this.modal = false;
         },
         openModal(category, task) {
             this.modal = true;
