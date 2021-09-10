@@ -548,6 +548,12 @@ export default {
                 }
             });
             this.tasks.splice(deleteIndex, 1);
+            // API接続（タスク削除）
+            axios.delete('/api/tasks/' + form_id)
+                .then((res) => {
+                    this.$router.push({name: 'gantt'}, () => {});
+                });
+
             this.form = {};
             this.show = false;
         }

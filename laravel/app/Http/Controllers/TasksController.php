@@ -28,7 +28,15 @@ class TasksController extends Controller
         $task->incharge_user = $request->incharge_user;
         $task->percentage = $request->percentage;
         $task->save();
-
+        
+        return $task;
+    }
+    
+    public function delete($task_id) {
+        
+        $task = Task::find($task_id);        
+        $task->delete();
+    
         return $task;
     }
 
