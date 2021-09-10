@@ -2934,7 +2934,13 @@ __webpack_require__.r(__webpack_exports__);
           deleteIndex = index;
         }
       });
-      this.tasks.splice(deleteIndex, 1);
+      this.tasks.splice(deleteIndex, 1); // API接続（タスク削除）
+
+      axios["delete"]('/api/tasks/' + this.form.id).then(function (res) {
+        _this9.$router.push({
+          name: 'kanban'
+        }, function () {});
+      });
       this.modal = false;
     },
     openModal: function openModal(category, task) {

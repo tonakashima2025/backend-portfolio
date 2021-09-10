@@ -284,6 +284,12 @@ export default {
                 }
             });
             this.tasks.splice(deleteIndex, 1);
+
+            // API接続（タスク削除）
+            axios.delete('/api/tasks/' + this.form.id)
+                .then((res) => {
+                    this.$router.push({name: 'kanban'}, () => {});
+                });
             
             this.modal = false;
         },
