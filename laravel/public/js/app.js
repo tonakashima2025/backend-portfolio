@@ -2822,12 +2822,23 @@ __webpack_require__.r(__webpack_exports__);
         this.show_category_input = false;
       }
     },
+    // API接続（カテゴリー追加）
+    apiCategoryAdd: function apiCategoryAdd() {
+      var _this5 = this;
+
+      axios.post('/api/categories', this.category).then(function (res) {
+        _this5.$router.push({
+          name: 'kanban'
+        }, function () {});
+      });
+    },
     closeCategoryInput: function closeCategoryInput() {
       this.category_name = '';
       this.show_category_input = false;
     },
+    // カテゴリー名更新
     categoryNameUpdate: function categoryNameUpdate(category_name, category_id) {
-      var _this5 = this;
+      var _this6 = this;
 
       var update_category = this.categories.find(function (element) {
         return element.id === category_id;
@@ -2835,26 +2846,12 @@ __webpack_require__.r(__webpack_exports__);
       update_category.name = category_name; // API接続（カテゴリー名更新）
 
       axios.put('/api/categories/' + category_id, update_category).then(function (res) {
-        _this5.$router.push({
-          name: 'kanban'
-        }, function () {});
-      });
-    },
-    // API接続（カテゴリー追加）
-    apiCategoryAdd: function apiCategoryAdd() {
-      var _this6 = this;
-
-      axios.post('/api/categories', this.category).then(function (res) {
         _this6.$router.push({
           name: 'kanban'
         }, function () {});
       });
     },
-    // API接続（カテゴリー名更新）
-    // apiCategoryUpdate: function(category_id) {
-    //     axios.put('/api/categories/' + category_id);
-    // },
-    // タスク追加・更新
+    // タスク追加
     taskAdd: function taskAdd(task_name, category_id) {
       this.tasks.push({
         id: Date.now(),
@@ -2862,18 +2859,7 @@ __webpack_require__.r(__webpack_exports__);
         name: task_name
       });
     },
-    openModal: function openModal(category, task) {
-      this.modal = true;
-      this.category = category; // Object.assign(this.form, task);
-
-      this.form.id = task.id;
-      this.form.category_id = task.category_id;
-      this.form.name = task.name;
-      this.form.start_date = task.start_date;
-      this.form.end_date = task.end_date;
-      this.form.incharge_user = task.incharge_user;
-      this.form.percentage = task.percentage;
-    },
+    // タスク更新
     taskUpdate: function taskUpdate() {
       var _this7 = this;
 
@@ -2895,6 +2881,18 @@ __webpack_require__.r(__webpack_exports__);
           name: 'kanban'
         }, function () {});
       });
+    },
+    openModal: function openModal(category, task) {
+      this.modal = true;
+      this.category = category; // Object.assign(this.form, task);
+
+      this.form.id = task.id;
+      this.form.category_id = task.category_id;
+      this.form.name = task.name;
+      this.form.start_date = task.start_date;
+      this.form.end_date = task.end_date;
+      this.form.incharge_user = task.incharge_user;
+      this.form.percentage = task.percentage;
     }
   },
   mounted: function mounted() {
