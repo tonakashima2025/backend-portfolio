@@ -520,22 +520,22 @@ export default {
             this.form = {};
             this.show = false;
         },
-        // API接続（タスク追加）
-        // apiAddTask() {
-        //     axios.post('/api/tasks', this.task)
-        //         .then((res) => {
-        //             this.$router.push({name: 'kanban'}, () => {});
-        //         });
-        // },
         // タスク更新
         editTask(task) {
             this.create_mode = false;
             this.show = true;
             Object.assign(this.form, task);
+            
         },
         updateTask(form_id) {
-            let task = this.tasks.find(task => task.id === form_id);
-            Object.assign(task, this.form);
+            let update_task = this.tasks.find(task => task.id === form_id);
+            Object.assign(update_task, this.form);
+            // API接続（タスク更新）
+            axios.put('/api/tasks/' + update_task.id, update_task)
+                .then((res) => {
+                    this.$router.push({name: 'gantt'}, () => {});
+                });
+
             this.form = {};
             this.show = false;
         },
