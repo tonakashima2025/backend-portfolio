@@ -68,8 +68,13 @@
                 <div class="overlay" v-show="modal" @click="modal=false">
                 </div>
                 <div class="content" v-show="modal">
-                    <div class="text font-bold">{{ form.name }}</div>
-                    <div class="text-xs">in カテゴリー{{ category.name }}</div>
+                    <div class="text-xs">カテゴリー{{ category.name }}</div>
+                    <div class="my-4">
+                        <label class="text-xs">
+                            タスク名
+                        </label>
+                        <input class="border rounded-lg px-4 py-2 text-xs" v-model="form.name">
+                    </div>
                     <div class="my-4">
                         <label class="text-xs">
                             担当者
