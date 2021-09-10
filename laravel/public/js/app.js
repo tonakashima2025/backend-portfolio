@@ -2487,10 +2487,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       Object.assign(this.form, task);
     },
     updateTask: function updateTask(form_id) {
-      var task = this.tasks.find(function (task) {
+      var _this6 = this;
+
+      var update_task = this.tasks.find(function (task) {
         return task.id === form_id;
       });
-      Object.assign(task, this.form);
+      Object.assign(update_task, this.form); // API接続（タスク更新）
+
+      axios.put('/api/tasks/' + update_task.id, update_task).then(function (res) {
+        _this6.$router.push({
+          name: 'gantt'
+        }, function () {});
+      });
       this.form = {};
       this.show = false;
     },
@@ -2508,12 +2516,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   mounted: function mounted() {
-    var _this6 = this;
+    var _this7 = this;
 
     this.getCalendar();
     this.getWindowSize();
     this.$nextTick(function () {
-      _this6.todayPosition();
+      _this7.todayPosition();
     });
     window.addEventListener('resize', this.getWindowSize);
     window.addEventListener('wheel', this.windowSizeCheck);
@@ -2545,7 +2553,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     // カテゴリー・タスクデータのネスト化
     lists: function lists() {
-      var _this7 = this;
+      var _this8 = this;
 
       var lists = [];
       this.categories.map(function (category) {
@@ -2553,7 +2561,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           cat: 'category'
         }, category));
 
-        _this7.tasks.map(function (task) {
+        _this8.tasks.map(function (task) {
           if (task.category_id === category.id && category.collapsed === false) {
             lists.push(_objectSpread({
               cat: 'task'
@@ -2565,7 +2573,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     // タスクバー表示
     taskBars: function taskBars() {
-      var _this8 = this;
+      var _this9 = this;
 
       var start_date = moment__WEBPACK_IMPORTED_MODULE_0___default()(this.start_month);
       var top = 10;
@@ -2582,11 +2590,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           between = date_to.diff(date_from, 'days');
           between++;
           start = date_from.diff(start_date, 'days');
-          left = start * _this8.block_size;
+          left = start * _this9.block_size;
           style = {
             top: "".concat(top, "px"),
             left: "".concat(left, "px"),
-            width: "".concat(_this8.block_size * between, "px")
+            width: "".concat(_this9.block_size * between, "px")
           };
         }
 
