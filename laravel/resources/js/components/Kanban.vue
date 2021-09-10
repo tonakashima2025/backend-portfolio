@@ -14,7 +14,8 @@
                 >
                     <category-name-update
                         :category="category"
-                        @category-name-updated="categoryNameUpdate">
+                        @category-name-updated="categoryNameUpdate"
+                        @category-delete="categoryDelete">
                     </category-name-update>
                     <div
                         v-for="(task,index) in category.tasks"
@@ -242,6 +243,24 @@ export default {
                 .then((res) => {
                     this.$router.push({name: 'kanban'}, () => {});
                 });
+        },
+        // カテゴリー削除
+        categoryDelete: function(category_id) {
+            let deleteIndex;
+            this.categories.map((category,index) => {
+                if(category.id === category_id) {
+                    deleteIndex = index;
+                }
+            });
+            this.categories.splice(deleteIndex, 1);
+
+            // API接続（カテゴリー削除）
+            axios.delete('/api/categories/' + category_id)
+                .then((res) => {
+                    this.$router.push({name: 'kanban'}, () => {});
+                });
+            
+
         },
         // タスク追加
         taskAdd: function(task_name, category_id) {

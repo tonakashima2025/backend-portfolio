@@ -5,11 +5,21 @@
         {{ this.category.name }}
     </div>
     <div v-else>
-        <input 
+        <!-- <input 
             v-model="category_name"
             @blur="updateName"
             @keyup.enter="updateName"
-            ref="input">
+            ref="input">         -->
+        <input 
+            v-model="category_name"
+            @keyup.enter="updateName"
+            ref="input">        
+        <button
+            class="mx-2 px-2 py-1 bg-red-500 hover:bg-red-700 text-white rounded-lg mr-2 font-bold text-xs"
+            @click="deleteCategory">
+            削除
+        </button>
+
     </div>
 </template>
 
@@ -28,8 +38,8 @@ export default {
             this.category_name = this.category.name;
             this.show = true;
             this.$nextTick(function () {
-                    this.focusInput();
-            })
+                this.focusInput();
+            });
             // Vue.nextTick(() => {
             //     this.focusInput();
             // });
@@ -40,7 +50,14 @@ export default {
         updateName: function() {
             this.$emit('category-name-updated', this.category_name, this.category.id);
             this.show = false;
-        }
+        },
+        
+        // カテゴリー削除
+        deleteCategory: function() {
+            this.$emit('category-delete', this.category.id);
+            this.show = false;
+        },
+
     }
 }
 </script>
