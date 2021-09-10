@@ -24,3 +24,4 @@ Route::put('/categories/{category_id}', 'CategoriesController@update');
 Route::get('/tasks', 'TasksController@index');
 Route::post('/tasks', 'TasksController@store');
 Route::put('/tasks/{task_id}', 'TasksController@update');
+Route::delete('/tasks/{task_id}', 'TasksController@delete');
