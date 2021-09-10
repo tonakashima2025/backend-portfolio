@@ -2731,6 +2731,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -62191,6 +62196,15 @@ var render = function() {
                   on: { click: _vm.taskUpdate }
                 },
                 [_vm._v("\n                    更新\n                ")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass:
+                    "px-4 py-2 bg-red-500 hover:bg-red-700 text-white rounded-lg mr-2 font-bold text-xs"
+                },
+                [_vm._v("\n                    削除\n                ")]
               )
             ]
           )

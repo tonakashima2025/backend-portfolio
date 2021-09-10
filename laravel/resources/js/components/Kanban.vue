@@ -94,6 +94,11 @@
                     >
                         更新
                     </button>
+                    <button 
+                        class="px-4 py-2 bg-red-500 hover:bg-red-700 text-white rounded-lg mr-2 font-bold text-xs"
+                    >
+                        削除
+                    </button>
                 </div>
             </div>
         </div>
