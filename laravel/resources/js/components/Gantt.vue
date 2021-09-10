@@ -163,11 +163,11 @@
                             </option>
                         </select>
                     </div>
-                    <div class="my-4">
+                    <!-- <div class="my-4">
                         <label for="" class="text-xs mr-2">ID：</label>
                         <input type="number" class="text-xs border rounded-lg px-4 py-2"
                             v-model="form.id">
-                    </div>
+                    </div> -->
                     <div class="my-4">
                         <label for="" class="text-xs mr-2">タスク名：</label>
                         <input type="text" class="text-xs border rounded-lg px-4 py-2"

@@ -61632,36 +61632,6 @@ var render = function() {
                 _c(
                   "label",
                   { staticClass: "text-xs mr-2", attrs: { for: "" } },
-                  [_vm._v("ID：")]
-                ),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.form.id,
-                      expression: "form.id"
-                    }
-                  ],
-                  staticClass: "text-xs border rounded-lg px-4 py-2",
-                  attrs: { type: "number" },
-                  domProps: { value: _vm.form.id },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(_vm.form, "id", $event.target.value)
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "my-4" }, [
-                _c(
-                  "label",
-                  { staticClass: "text-xs mr-2", attrs: { for: "" } },
                   [_vm._v("タスク名：")]
                 ),
                 _vm._v(" "),
