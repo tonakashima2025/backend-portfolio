@@ -13,6 +13,12 @@ class TasksController extends Controller
     
     }
 
+    public function store(Request $request){
+
+        return Task::create($request->all());
+    
+    }
+
     public function update(Request $request, $update_task) {
 
         $task = Task::find($update_task);

@@ -116,7 +116,7 @@ export default {
             categories: [],
             tasks: [],
             category: {},
-            task: '',
+            task: {},
             type: '',
             category_name: '',
             show_category_input: false,
@@ -233,12 +233,20 @@ export default {
                 });
         },
         // タスク追加
-        taskAdd(task_name, category_id) {
-            this.tasks.push({
-                id: Date.now(),
+        taskAdd: function(task_name, category_id) {
+            this.task = {
                 category_id: category_id,
                 name: task_name,
-            });
+            },
+            this.tasks.push(this.task);
+            this.apiTaskAdd();
+        },
+        // API接続（タスク追加）
+        apiTaskAdd: function() {
+            axios.post('/api/tasks', this.task)
+                .then((res) => {
+                    this.$router.push({name: 'kanban'}, () => {});
+                });
         },
         // タスク更新
         taskUpdate() {
