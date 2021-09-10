@@ -2719,7 +2719,7 @@ __webpack_require__.r(__webpack_exports__);
       categories: [],
       tasks: [],
       category: {},
-      task: '',
+      task: {},
       type: '',
       category_name: '',
       show_category_input: false,
@@ -2853,11 +2853,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     // タスク追加
     taskAdd: function taskAdd(task_name, category_id) {
-      this.tasks.push({
-        id: Date.now(),
+      this.task = {
         category_id: category_id,
         name: task_name
-      });
+      }, this.tasks.push(this.task);
       this.apiTaskAdd();
     },
     // API接続（タスク追加）
