@@ -2858,13 +2858,24 @@ __webpack_require__.r(__webpack_exports__);
         category_id: category_id,
         name: task_name
       });
+      this.apiTaskAdd();
+    },
+    // API接続（タスク追加）
+    apiTaskAdd: function apiTaskAdd() {
+      var _this7 = this;
+
+      axios.post('/api/tasks', this.task).then(function (res) {
+        _this7.$router.push({
+          name: 'kanban'
+        }, function () {});
+      });
     },
     // タスク更新
     taskUpdate: function taskUpdate() {
-      var _this7 = this;
+      var _this8 = this;
 
       var update_task = this.tasks.find(function (task) {
-        return task.id === _this7.form.id;
+        return task.id === _this8.form.id;
       }); // Object.assign(task, this.form);
       // update_task.id = this.form.id;
       // update_task.category_id = this.form.category_id;
@@ -2877,7 +2888,7 @@ __webpack_require__.r(__webpack_exports__);
       this.modal = false; // API接続（タスク更新）
 
       axios.put('/api/tasks/' + update_task.id, update_task).then(function (res) {
-        _this7.$router.push({
+        _this8.$router.push({
           name: 'kanban'
         }, function () {});
       });
@@ -2902,12 +2913,12 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     displayCategories: function displayCategories() {
-      var _this8 = this;
+      var _this9 = this;
 
       var categories = [];
       var tasks = "";
       this.categories.map(function (category) {
-        tasks = _this8.tasks.filter(function (task) {
+        tasks = _this9.tasks.filter(function (task) {
           return task.category_id === category.id;
         });
         categories.push({

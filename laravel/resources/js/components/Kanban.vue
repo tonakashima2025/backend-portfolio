@@ -239,6 +239,14 @@ export default {
                 category_id: category_id,
                 name: task_name,
             });
+            this.apiTaskAdd();
+        },
+        // API接続（タスク追加）
+        apiTaskAdd: function() {
+            axios.post('/api/tasks', this.task)
+                .then((res) => {
+                    this.$router.push({name: 'kanban'}, () => {});
+                });
         },
         // タスク更新
         taskUpdate() {
