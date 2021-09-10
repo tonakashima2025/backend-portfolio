@@ -511,18 +511,22 @@ export default {
         },
         saveTask() {
             this.tasks.push(this.form);
+            // API接続（タスク追加）
+            axios.post('/api/tasks', this.form)
+                .then((res) => {
+                    this.$router.push({name: 'gantt'}, () => {});
+                });
+
             this.form = {};
             this.show = false;
-
-            this.apiTaskAdd();
         },
         // API接続（タスク追加）
-        apiAddTask() {
-            axios.post('/api/tasks', this.task)
-                .then((res) => {
-                    this.$router.push({name: 'kanban'}, () => {});
-                });
-        },
+        // apiAddTask() {
+        //     axios.post('/api/tasks', this.task)
+        //         .then((res) => {
+        //             this.$router.push({name: 'kanban'}, () => {});
+        //         });
+        // },
         // タスク更新
         editTask(task) {
             this.create_mode = false;

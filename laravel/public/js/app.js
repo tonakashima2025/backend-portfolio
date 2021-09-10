@@ -2468,21 +2468,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.show = true;
     },
     saveTask: function saveTask() {
-      this.tasks.push(this.form);
-      this.form = {};
-      this.show = false;
-      this.apiTaskAdd();
-    },
-    // API接続（タスク追加）
-    apiAddTask: function apiAddTask() {
       var _this5 = this;
 
-      axios.post('/api/tasks', this.task).then(function (res) {
+      this.tasks.push(this.form); // API接続（タスク追加）
+
+      axios.post('/api/tasks', this.form).then(function (res) {
         _this5.$router.push({
-          name: 'kanban'
+          name: 'gantt'
         }, function () {});
       });
+      this.form = {};
+      this.show = false;
     },
+    // API接続（タスク追加）
+    // apiAddTask() {
+    //     axios.post('/api/tasks', this.task)
+    //         .then((res) => {
+    //             this.$router.push({name: 'kanban'}, () => {});
+    //         });
+    // },
     // タスク更新
     editTask: function editTask(task) {
       this.create_mode = false;
