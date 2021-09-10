@@ -503,7 +503,7 @@ export default {
             let category = this.categories.find(category => category.id === category_id);
             category.collapsed ? category.collapsed = false : category.collapsed = true;
         },
-        // タスク追加・更新・削除
+        // タスク追加
         addTask() {
             this.create_mode = true;
             this.form = {};
@@ -513,7 +513,17 @@ export default {
             this.tasks.push(this.form);
             this.form = {};
             this.show = false;
+
+            this.apiTaskAdd();
         },
+        // API接続（タスク追加）
+        apiAddTask() {
+            axios.post('/api/tasks', this.task)
+                .then((res) => {
+                    this.$router.push({name: 'kanban'}, () => {});
+                });
+        },
+        // タスク更新
         editTask(task) {
             this.create_mode = false;
             this.show = true;
@@ -525,6 +535,7 @@ export default {
             this.form = {};
             this.show = false;
         },
+        // タスク削除
         deleteTask(form_id) {
             let deleteIndex;
             this.tasks.map((task,index) => {
