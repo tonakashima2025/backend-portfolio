@@ -30,4 +30,12 @@ class CategoriesController extends Controller
         return $category;
     }
 
+    public function delete($category_id) {
+        
+        $category = Category::find($category_id);
+        $category->delete();
+    
+        return $category;
+    }
+
 }
