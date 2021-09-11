@@ -42,14 +42,20 @@
                                 <span>{{ task.name }}</span>
                                 <div class="pr-4" @click="toggleCategory(task.id)">
                                     <span v-if="task.collapsed">
-                                        ∨ 
+                                        <!-- ∧ -->
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                        </svg>
                                         <!-- <svg class="w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24"
                                             stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                                         </svg> -->
                                     </span>
                                     <span v-else>
-                                        ∧ 
+                                        <!-- ∨ -->
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+                                        </svg>
                                         <!-- <svg class="w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24"
                                             stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
@@ -525,7 +531,7 @@ export default {
         // カテゴリー開閉
         toggleCategory(category_id) {
             let category = this.categories.find(category => category.id === category_id);
-            category.collapsed ? category.collapsed = false : category.collapsed = true;
+            category.collapsed ? category.collapsed = 0 : category.collapsed = 1;
         },
         // タスク追加
         addTask() {
@@ -623,7 +629,7 @@ export default {
             this.categories.map(category => {
                 lists.push({ cat: 'category', ...category });
                 this.tasks.map(task => {
-                    if(task.category_id === category.id && category.collapsed === false) {
+                    if(task.category_id === category.id && category.collapsed === 0) {
                         lists.push({ cat: 'task', ...task});
                     }
                 })

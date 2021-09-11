@@ -2145,6 +2145,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Gantt',
@@ -2483,7 +2489,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var category = this.categories.find(function (category) {
         return category.id === category_id;
       });
-      category.collapsed ? category.collapsed = false : category.collapsed = true;
+      category.collapsed ? category.collapsed = 0 : category.collapsed = 1;
     },
     // タスク追加
     addTask: function addTask() {
@@ -2594,7 +2600,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }, category));
 
         _this9.tasks.map(function (task) {
-          if (task.category_id === category.id && category.collapsed === false) {
+          if (task.category_id === category.id && category.collapsed === 0) {
             lists.push(_objectSpread({
               cat: 'task'
             }, task));
@@ -61289,13 +61295,51 @@ var render = function() {
                             [
                               task.collapsed
                                 ? _c("span", [
-                                    _vm._v(
-                                      "\n                                    ∨ \n                                    "
+                                    _c(
+                                      "svg",
+                                      {
+                                        staticClass: "h-6 w-6",
+                                        attrs: {
+                                          xmlns: "http://www.w3.org/2000/svg",
+                                          fill: "none",
+                                          viewBox: "0 0 24 24",
+                                          stroke: "currentColor"
+                                        }
+                                      },
+                                      [
+                                        _c("path", {
+                                          attrs: {
+                                            "stroke-linecap": "round",
+                                            "stroke-linejoin": "round",
+                                            "stroke-width": "2",
+                                            d: "M19 9l-7 7-7-7"
+                                          }
+                                        })
+                                      ]
                                     )
                                   ])
                                 : _c("span", [
-                                    _vm._v(
-                                      "\n                                    ∧ \n                                    "
+                                    _c(
+                                      "svg",
+                                      {
+                                        staticClass: "h-6 w-6",
+                                        attrs: {
+                                          xmlns: "http://www.w3.org/2000/svg",
+                                          fill: "none",
+                                          viewBox: "0 0 24 24",
+                                          stroke: "currentColor"
+                                        }
+                                      },
+                                      [
+                                        _c("path", {
+                                          attrs: {
+                                            "stroke-linecap": "round",
+                                            "stroke-linejoin": "round",
+                                            "stroke-width": "2",
+                                            d: "M5 15l7-7 7 7"
+                                          }
+                                        })
+                                      ]
                                     )
                                   ])
                             ]
