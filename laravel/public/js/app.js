@@ -2387,9 +2387,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           targetTask.start_date = targetTaskStart_date.format('YYYY-MM-DD');
           targetTask.end_date = targetTaskEnd_date.format('YYYY-MM-DD'); // API接続（タスク更新）
 
-          targetTask.name = targetTask.name;
-          targetTask.incharge_user = targetTask.incharge_user;
-          targetTask.percentage = targetTask.percentage;
           axios.put('/api/tasks/' + targetTask.id, targetTask).then(function (res) {
             _this4.$router.push({
               name: 'gantt'
