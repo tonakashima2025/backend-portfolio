@@ -2412,7 +2412,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           var _targetTaskEnd_date = moment__WEBPACK_IMPORTED_MODULE_0___default()(_targetTask.end_date);
 
           if (_targetTaskEnd_date.diff(_targetTaskStart_date, 'days') > 0) {
-            _targetTask.start_date = _targetTaskStart_date.format('YYYY-MM-DD');
+            _targetTask.start_date = _targetTaskStart_date.format('YYYY-MM-DD'); // API接続（タスク更新）
+
+            axios.put('/api/tasks/' + _targetTask.id, _targetTask).then(function (res) {
+              _this4.$router.push({
+                name: 'gantt'
+              }, function () {});
+            });
           } else {
             _targetTask.start_date = _targetTaskEnd_date.format('YYYY-MM-DD');
           }
@@ -2438,7 +2444,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
           var _targetTaskEnd_date2 = moment__WEBPACK_IMPORTED_MODULE_0___default()(_targetTask2.end_date).add(-_days2, 'days');
 
-          _targetTask2.end_date = _targetTaskEnd_date2.format('YYYY-MM-DD');
+          _targetTask2.end_date = _targetTaskEnd_date2.format('YYYY-MM-DD'); // API接続（タスク更新）
+
+          axios.put('/api/tasks/' + _targetTask2.id, _targetTask2).then(function (res) {
+            _this4.$router.push({
+              name: 'gantt'
+            }, function () {});
+          });
         } else {
           var _targetTask3 = this.tasks.find(function (task) {
             return task.id === _this4.task_id;
@@ -2449,7 +2461,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           var _targetTaskEnd_date3 = moment__WEBPACK_IMPORTED_MODULE_0___default()(_targetTask3.end_date).add(-_days2, 'days');
 
           if (_targetTaskEnd_date3.diff(_targetTaskStart_date2, 'days') >= 1) {
-            _targetTask3.end_date = _targetTaskEnd_date3.format('YYYY-MM-DD');
+            _targetTask3.end_date = _targetTaskEnd_date3.format('YYYY-MM-DD'); // API接続（タスク更新）
+
+            axios.put('/api/tasks/' + _targetTask3.id, _targetTask3).then(function (res) {
+              _this4.$router.push({
+                name: 'gantt'
+              }, function () {});
+            });
           } else {
             _targetTask3.end_date = _targetTaskStart_date2.format('YYYY-MM-DD');
           }
