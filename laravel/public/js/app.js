@@ -2385,7 +2385,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           var targetTaskStart_date = moment__WEBPACK_IMPORTED_MODULE_0___default()(targetTask.start_date).add(-days, 'days');
           var targetTaskEnd_date = moment__WEBPACK_IMPORTED_MODULE_0___default()(targetTask.end_date).add(-days, 'days');
           targetTask.start_date = targetTaskStart_date.format('YYYY-MM-DD');
-          targetTask.end_date = targetTaskEnd_date.format('YYYY-MM-DD');
+          targetTask.end_date = targetTaskEnd_date.format('YYYY-MM-DD'); // API接続（タスク更新）
+
+          targetTask.name = targetTask.name;
+          targetTask.incharge_user = targetTask.incharge_user;
+          targetTask.percentage = targetTask.percentage;
+          axios.put('/api/tasks/' + targetTask.id, targetTask).then(function (res) {
+            _this4.$router.push({
+              name: 'gantt'
+            }, function () {});
+          });
         } else {
           this.element.style.left = "".concat(this.left.replace('px', ''), "px");
         }
