@@ -2412,7 +2412,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           var _targetTaskEnd_date = moment__WEBPACK_IMPORTED_MODULE_0___default()(_targetTask.end_date);
 
           if (_targetTaskEnd_date.diff(_targetTaskStart_date, 'days') > 0) {
-            _targetTask.start_date = _targetTaskStart_date.format('YYYY-MM-DD');
+            _targetTask.start_date = _targetTaskStart_date.format('YYYY-MM-DD'); // API接続（タスク更新）
+
+            axios.put('/api/tasks/' + _targetTask.id, _targetTask).then(function (res) {
+              _this4.$router.push({
+                name: 'gantt'
+              }, function () {});
+            });
           } else {
             _targetTask.start_date = _targetTaskEnd_date.format('YYYY-MM-DD');
           }

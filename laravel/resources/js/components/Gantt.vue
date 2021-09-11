@@ -457,7 +457,7 @@ export default {
                         .then((res) => {
                             this.$router.push({name: 'gantt'}, () => {});
                         });
-                        
+
                 } else {
                     this.element.style.left = `${this.left.replace('px', '')}px`;
                 }
@@ -471,6 +471,12 @@ export default {
                     let targetTaskEnd_date = moment(targetTask.end_date);
                     if(targetTaskEnd_date.diff(targetTaskStart_date, 'days') > 0) {
                         targetTask.start_date = targetTaskStart_date.format('YYYY-MM-DD');
+                        // API接続（タスク更新）
+                        axios.put('/api/tasks/' + targetTask.id, targetTask)
+                            .then((res) => {
+                                this.$router.push({name: 'gantt'}, () => {});
+                            });
+
                     } else {
                         targetTask.start_date = targetTaskEnd_date.format('YYYY-MM-DD');
                     }
