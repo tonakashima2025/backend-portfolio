@@ -61472,7 +61472,7 @@ var render = function() {
                           class: {
                             "bg-blue-100": day.dayOfWeek === "土",
                             "bg-red-100": day.dayOfWeek === "日",
-                            "bg-red-600 text-white":
+                            "bg-red-600 text-yellow-500":
                               calendar.year === _vm.today.year() &&
                               calendar.month === _vm.today.month() &&
                               day.day === _vm.today.date()

@@ -99,7 +99,7 @@
                             <div v-for="(day,index) in calendar.days" :key="index">
                                 <div class="border-r h-12 absolute flex items-center justify-center flex-col font-bold text-xs"
                                     :style="`width:${block_size}px;left:${day.block_number*block_size}px;`"
-                                    :class="{'bg-blue-100': day.dayOfWeek === '土', 'bg-red-100': day.dayOfWeek === '日', 'bg-red-600 text-white': calendar.year === today.year() && calendar.month === today.month() && day.day === today.date()}">
+                                    :class="{'bg-blue-100': day.dayOfWeek === '土', 'bg-red-100': day.dayOfWeek === '日', 'bg-red-600 text-yellow-500': calendar.year === today.year() && calendar.month === today.month() && day.day === today.date()}">
                                     <span>{{ day.day }}</span>
                                     <span>{{ day.dayOfWeek }}</span>
                                 </div>
