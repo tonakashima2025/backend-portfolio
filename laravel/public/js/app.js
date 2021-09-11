@@ -2742,6 +2742,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2888,6 +2889,24 @@ __webpack_require__.r(__webpack_exports__);
         }, function () {});
       });
     },
+    // カテゴリー削除
+    categoryDelete: function categoryDelete(category_id) {
+      var _this7 = this;
+
+      var deleteIndex;
+      this.categories.map(function (category, index) {
+        if (category.id === category_id) {
+          deleteIndex = index;
+        }
+      });
+      this.categories.splice(deleteIndex, 1); // API接続（カテゴリー削除）
+
+      axios["delete"]('/api/categories/' + category_id).then(function (res) {
+        _this7.$router.push({
+          name: 'kanban'
+        }, function () {});
+      });
+    },
     // タスク追加
     taskAdd: function taskAdd(task_name, category_id) {
       this.task = {
@@ -2898,20 +2917,20 @@ __webpack_require__.r(__webpack_exports__);
     },
     // API接続（タスク追加）
     apiTaskAdd: function apiTaskAdd() {
-      var _this7 = this;
+      var _this8 = this;
 
       axios.post('/api/tasks', this.task).then(function (res) {
-        _this7.$router.push({
+        _this8.$router.push({
           name: 'kanban'
         }, function () {});
       });
     },
     // タスク更新
     taskUpdate: function taskUpdate() {
-      var _this8 = this;
+      var _this9 = this;
 
       var update_task = this.tasks.find(function (task) {
-        return task.id === _this8.form.id;
+        return task.id === _this9.form.id;
       }); // Object.assign(task, this.form);
       // update_task.id = this.form.id;
       // update_task.category_id = this.form.category_id;
@@ -2924,25 +2943,25 @@ __webpack_require__.r(__webpack_exports__);
       this.modal = false; // API接続（タスク更新）
 
       axios.put('/api/tasks/' + update_task.id, update_task).then(function (res) {
-        _this8.$router.push({
+        _this9.$router.push({
           name: 'kanban'
         }, function () {});
       });
     },
     // タスク削除
     taskDelete: function taskDelete() {
-      var _this9 = this;
+      var _this10 = this;
 
       var deleteIndex;
       this.tasks.map(function (task, index) {
-        if (task.id === _this9.form.id) {
+        if (task.id === _this10.form.id) {
           deleteIndex = index;
         }
       });
       this.tasks.splice(deleteIndex, 1); // API接続（タスク削除）
 
       axios["delete"]('/api/tasks/' + this.form.id).then(function (res) {
-        _this9.$router.push({
+        _this10.$router.push({
           name: 'kanban'
         }, function () {});
       });
@@ -2968,12 +2987,12 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     displayCategories: function displayCategories() {
-      var _this10 = this;
+      var _this11 = this;
 
       var categories = [];
       var tasks = "";
       this.categories.map(function (category) {
-        tasks = _this10.tasks.filter(function (task) {
+        tasks = _this11.tasks.filter(function (task) {
           return task.category_id === category.id;
         });
         categories.push({
@@ -3013,6 +3032,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'CategoryNameUpdate',
   props: ['category'],
@@ -3037,6 +3066,11 @@ __webpack_require__.r(__webpack_exports__);
     },
     updateName: function updateName() {
       this.$emit('category-name-updated', this.category_name, this.category.id);
+      this.show = false;
+    },
+    // カテゴリー削除
+    deleteCategory: function deleteCategory() {
+      this.$emit('category-delete', this.category.id);
       this.show = false;
     }
   }
@@ -61950,7 +61984,10 @@ var render = function() {
               [
                 _c("category-name-update", {
                   attrs: { category: category },
-                  on: { "category-name-updated": _vm.categoryNameUpdate }
+                  on: {
+                    "category-name-updated": _vm.categoryNameUpdate,
+                    "category-delete": _vm.categoryDelete
+                  }
                 }),
                 _vm._v(" "),
                 _vm._l(category.tasks, function(task, index) {
@@ -62345,7 +62382,6 @@ var render = function() {
           ref: "input",
           domProps: { value: _vm.category_name },
           on: {
-            blur: _vm.updateName,
             keyup: function($event) {
               if (
                 !$event.type.indexOf("key") &&
@@ -62362,7 +62398,17 @@ var render = function() {
               _vm.category_name = $event.target.value
             }
           }
-        })
+        }),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass:
+              "mx-2 px-2 py-1 bg-red-500 hover:bg-red-700 text-white rounded-lg mr-2 font-bold text-xs",
+            on: { click: _vm.deleteCategory }
+          },
+          [_vm._v("\n        削除\n    ")]
+        )
       ])
 }
 var staticRenderFns = []
