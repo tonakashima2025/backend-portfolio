@@ -17,7 +17,7 @@ class TasksTableSeeder extends Seeder
                 'name' => 'タスク' . $i,
                 'start_date' => '2021-07-01',
                 'end_date' => '2021-07-11',
-                'incharge_user' => 'incharge_user' . $i,
+                'incharge_user' => '担当' . $i,
                 'percentage' => (rand(1,10) * 10),
             ]);
         }
