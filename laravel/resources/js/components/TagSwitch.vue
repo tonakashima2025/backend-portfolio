@@ -2,7 +2,7 @@
     <div id="app">
         <div id="nav">
             <router-link to="/kanban">Kanban</router-link> |
-            <router-link to="/Gantt">Gantt</router-link>
+            <router-link to="/gantt">Gantt</router-link>
         </div>
         <router-view/>
     </div>
