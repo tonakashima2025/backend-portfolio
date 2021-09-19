@@ -18,10 +18,10 @@ class CreateTasksTable extends Migration
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories');
             $table->string('name');
-            $table->date('start_date');
-            $table->date('end_date');
-            $table->string('incharge_user');
-            $table->bigInteger('percentage');
+            $table->date('start_date')->nullable()->change();
+            $table->date('end_date')->nullable()->change();
+            $table->string('incharge_user')->nullable()->change();
+            $table->bigInteger('percentage')->nullable()->change();
             $table->timestamps();
         });
     }
