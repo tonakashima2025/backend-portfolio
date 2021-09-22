@@ -2770,6 +2770,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2877,6 +2878,15 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     // カテゴリー追加
+    showInputCategory: function showInputCategory() {
+      this.show_category_input = true;
+      this.$nextTick(function () {
+        this.focusInputCategory();
+      });
+    },
+    focusInputCategory: function focusInputCategory() {
+      this.$refs.inputCategory.focus();
+    },
     categoryAdd: function categoryAdd() {
       if (this.category_name !== '') {
         this.category = {
@@ -62083,21 +62093,11 @@ var render = function() {
         _c("div", { staticStyle: { "min-width": "400px" } }, [
           _c("div", { staticClass: "bg-gray-200 m-2 p-2 text-sm" }, [
             !_vm.show_category_input
-              ? _c(
-                  "div",
-                  {
-                    on: {
-                      click: function($event) {
-                        _vm.show_category_input = true
-                      }
-                    }
-                  },
-                  [
-                    _vm._v(
-                      "\n                    カテゴリーを追加\n                "
-                    )
-                  ]
-                )
+              ? _c("div", { on: { click: _vm.showInputCategory } }, [
+                  _vm._v(
+                    "\n                    カテゴリーを追加\n                "
+                  )
+                ])
               : _c("div", [
                   _c("input", {
                     directives: [
@@ -62108,6 +62108,7 @@ var render = function() {
                         expression: "category_name"
                       }
                     ],
+                    ref: "inputCategory",
                     staticClass: "w-full p-2",
                     attrs: {
                       type: "text",

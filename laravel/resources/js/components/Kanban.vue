@@ -35,7 +35,7 @@
                 <div class="bg-gray-200 m-2 p-2 text-sm">
                     <div
                         v-if="!show_category_input"
-                        @click="show_category_input=true"
+                        @click="showInputCategory"
                     >
                         カテゴリーを追加
                     </div>
@@ -45,6 +45,7 @@
                             class="w-full p-2" 
                             placeholder="新しいカテゴリー名を追加してください"
                             v-model="category_name"
+                            ref="inputCategory"
                         >
                         <div class="flex m-2">
                             <button 
@@ -212,6 +213,15 @@ export default {
             }
         },
         // カテゴリー追加
+        showInputCategory: function() {
+            this.show_category_input=true;
+            this.$nextTick(function () {
+                this.focusInputCategory();
+            })
+        },
+        focusInputCategory: function() {
+            this.$refs.inputCategory.focus();
+        },
         categoryAdd: function() {
             if (this.category_name !=='') {
                 this.category = {
