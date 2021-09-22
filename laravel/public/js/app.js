@@ -62286,6 +62286,7 @@ var render = function() {
                     }
                   ],
                   staticClass: "border rounded-lg px-4 py-2 text-xs",
+                  attrs: { type: "date" },
                   domProps: { value: _vm.form.start_date },
                   on: {
                     input: function($event) {
@@ -62315,6 +62316,7 @@ var render = function() {
                     }
                   ],
                   staticClass: "border rounded-lg px-4 py-2 text-xs",
+                  attrs: { type: "date" },
                   domProps: { value: _vm.form.end_date },
                   on: {
                     input: function($event) {

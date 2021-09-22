@@ -87,13 +87,13 @@
                         <label class="text-xs">
                             開始日
                         </label>
-                        <input class="border rounded-lg px-4 py-2 text-xs" v-model="form.start_date">
+                        <input type="date" class="border rounded-lg px-4 py-2 text-xs" v-model="form.start_date">
                     </div>
                     <div class="my-4">
                         <label class="text-xs">
                             終了締切日
                         </label>
-                        <input class="border rounded-lg px-4 py-2 text-xs" v-model="form.end_date">
+                        <input type="date" class="border rounded-lg px-4 py-2 text-xs" v-model="form.end_date">
                     </div>
                     <button 
                         class="px-4 py-2 bg-green-500 hover:bg-green-700 text-white rounded-lg mr-2 font-bold text-xs"
