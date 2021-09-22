@@ -199,14 +199,13 @@
                         <input type="number" class="text-xs border rounded-lg px-4 py-2"
                             v-model="form.percentage">
                     </div>
-                    <div v-if="create_mode" class="flex items-center justify-between">
+                    <div v-if="create_mode" class="flex items-center justify-around">
                         <button class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg flex items-center"
                             @click="saveTask">
-                            ★
                             <!-- <svg class="w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                             </svg> -->
-                            <span class="font-bold text-xs">タスク追加</span>
+                            <span class="font-bold text-xs">追加</span>
                         </button>
                     </div>
                     <div v-else  class="flex items-center justify-around">

@@ -2148,7 +2148,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Gantt',
@@ -61918,7 +61917,7 @@ var render = function() {
               _vm.create_mode
                 ? _c(
                     "div",
-                    { staticClass: "flex items-center justify-between" },
+                    { staticClass: "flex items-center justify-around" },
                     [
                       _c(
                         "button",
@@ -61928,12 +61927,8 @@ var render = function() {
                           on: { click: _vm.saveTask }
                         },
                         [
-                          _vm._v(
-                            "\n                        ★\n                        "
-                          ),
-                          _vm._v(" "),
                           _c("span", { staticClass: "font-bold text-xs" }, [
-                            _vm._v("タスク追加")
+                            _vm._v("追加")
                           ])
                         ]
                       )
