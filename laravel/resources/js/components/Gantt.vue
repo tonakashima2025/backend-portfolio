@@ -541,7 +541,7 @@ export default {
             // API接続（タスク追加）
             axios.post('/api/tasks', this.form)
                 .then((res) => {
-                    this.$router.push({name: 'gantt'}, () => {});
+                    this.$router.go({name: 'gantt', force: true});
                 });
 
             this.form = {};

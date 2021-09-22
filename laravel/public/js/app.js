@@ -2500,9 +2500,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.tasks.push(this.form); // API接続（タスク追加）
 
       axios.post('/api/tasks', this.form).then(function (res) {
-        _this5.$router.push({
-          name: 'gantt'
-        }, function () {});
+        _this5.$router.go({
+          name: 'gantt',
+          force: true
+        });
       });
       this.form = {};
       this.show = false;
@@ -2902,9 +2903,10 @@ __webpack_require__.r(__webpack_exports__);
       var _this5 = this;
 
       axios.post('/api/categories', this.category).then(function (res) {
-        _this5.$router.push({
-          name: 'kanban'
-        }, function () {});
+        _this5.$router.go({
+          name: 'kanban',
+          force: true
+        });
       });
     },
     closeCategoryInput: function closeCategoryInput() {
@@ -2957,9 +2959,10 @@ __webpack_require__.r(__webpack_exports__);
       var _this8 = this;
 
       axios.post('/api/tasks', this.task).then(function (res) {
-        _this8.$router.push({
-          name: 'kanban'
-        }, function () {});
+        _this8.$router.go({
+          name: 'kanban',
+          force: true
+        });
       });
     },
     // タスク更新
