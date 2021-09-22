@@ -2149,8 +2149,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Gantt',
@@ -61707,10 +61705,8 @@ var render = function() {
             },
             [
               _vm.create_mode
-                ? _c("h2", { staticClass: "font-bold" }, [_vm._v("タスク追加")])
-                : _c("h2", { staticClass: "font-bold" }, [
-                    _vm._v("タスク更新")
-                  ]),
+                ? _c("h2", { staticClass: "font-bold" }, [_vm._v("追加")])
+                : _c("h2", { staticClass: "font-bold" }, [_vm._v("更新")]),
               _vm._v(" "),
               _c("div", { staticClass: "my-4" }, [
                 _c(
@@ -61945,7 +61941,7 @@ var render = function() {
                   )
                 : _c(
                     "div",
-                    { staticClass: "flex items-center justify-between" },
+                    { staticClass: "flex items-center justify-around" },
                     [
                       _c(
                         "button",
@@ -61959,14 +61955,10 @@ var render = function() {
                           }
                         },
                         [
-                          _vm._v(
-                            "\n                        ★\n                        "
-                          ),
-                          _vm._v(" "),
                           _c(
                             "span",
                             { staticClass: "font-bold text-xs text-white" },
-                            [_vm._v("タスク更新")]
+                            [_vm._v("更新")]
                           )
                         ]
                       ),
@@ -61983,14 +61975,10 @@ var render = function() {
                           }
                         },
                         [
-                          _vm._v(
-                            "\n                        ★\n                        "
-                          ),
-                          _vm._v(" "),
                           _c(
                             "span",
                             { staticClass: "text-xs font-bold text-white" },
-                            [_vm._v("タスク削除")]
+                            [_vm._v("削除")]
                           )
                         ]
                       )
@@ -62401,7 +62389,7 @@ var render = function() {
         [
           _c("router-link", { attrs: { to: "/kanban" } }, [_vm._v("Kanban")]),
           _vm._v(" |\n        "),
-          _c("router-link", { attrs: { to: "/Gantt" } }, [_vm._v("Gantt")])
+          _c("router-link", { attrs: { to: "/gantt" } }, [_vm._v("Gantt")])
         ],
         1
       ),
