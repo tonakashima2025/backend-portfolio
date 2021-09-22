@@ -626,7 +626,7 @@ export default {
             this.categories.map(category => {
                 lists.push({ cat: 'category', ...category });
                 this.tasks.map(task => {
-                    if(task.category_id === category.id && category.collapsed === 0) {
+                    if(task.category_id === category.id && category.collapsed === 1) {
                         lists.push({ cat: 'task', ...task});
                     }
                 })

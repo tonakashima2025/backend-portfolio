@@ -2597,7 +2597,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }, category));
 
         _this9.tasks.map(function (task) {
-          if (task.category_id === category.id && category.collapsed === 0) {
+          if (task.category_id === category.id && category.collapsed === 1) {
             lists.push(_objectSpread({
               cat: 'task'
             }, task));
