@@ -237,7 +237,7 @@ export default {
         apiCategoryAdd: function() {
             axios.post('/api/categories', this.category)
                 .then((res) => {
-                    this.$router.push({name: 'kanban'}, () => {});
+                    this.$router.go({name: 'kanban', force: true});
                 });
         },
         closeCategoryInput: function() {
@@ -285,7 +285,7 @@ export default {
         apiTaskAdd: function() {
             axios.post('/api/tasks', this.task)
                 .then((res) => {
-                    this.$router.push({name: 'kanban'}, () => {});
+                    this.$router.go({name: 'kanban', force: true});
                 });
         },
         // タスク更新
