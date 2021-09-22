@@ -14,7 +14,7 @@ class CategoriesTableSeeder extends Seeder
         for ($i = 1; $i <= 3; $i++) {
             Category::create([
                 'name' => 'カテゴリー' . $i,
-                'collapsed' => 0,
+                'collapsed' => 1,
             ]);
         }
     }
