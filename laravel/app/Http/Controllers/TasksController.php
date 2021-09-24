@@ -9,7 +9,8 @@ class TasksController extends Controller
 {
     public function index() {
 
-        return Task::all();
+        // return Task::all();
+        return Task::orderBy("sort", "asc")->get();
     
     }
 
@@ -27,6 +28,7 @@ class TasksController extends Controller
         $task->end_date = $request->end_date;
         $task->incharge_user = $request->incharge_user;
         $task->percentage = $request->percentage;
+        $task->sort = $request->sort;
         $task->save();
         
         return $task;

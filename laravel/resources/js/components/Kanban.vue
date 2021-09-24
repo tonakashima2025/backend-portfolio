@@ -26,7 +26,7 @@
                         draggable="true"
                         @click="openModal(category,task)"
                     >
-                        {{ task.name }}
+                        {{ task.name }} 並び順{{ task.sort }} 
                     </div>
                     <task-add @task-added="taskAdd" :category_id="category.id"></task-add>
                 </div>
@@ -141,7 +141,8 @@ export default {
                 start_date:'',
                 end_date:'',
                 incharge_user:'',
-                percentage:''
+                percentage:'',
+                sort: '',
             },
         }
     },
@@ -209,7 +210,22 @@ export default {
                 });
                 this.tasks.splice(deleteIndex, 1);
                 this.task.category_id = overTask.category_id;
+                // API接続（カテゴリー区分変更）
+                // axios.put('/api/tasks/' + this.task.id, this.task)
+                //     .then((res) => {
+                //         this.$router.go({name: 'kanban', force: true});
+                // });
                 this.tasks.splice(addIndex, 0, this.task);
+                this.tasks.forEach((task,index) => {
+                    task.sort = index;
+                });
+                this.tasks.forEach((task) => {
+                    // API接続（ソートカラム更新）
+                    axios.put('/api/tasks/' + task.id, task)
+                        .then((res) => {
+                            this.$router.go({name: 'kanban', force: true});
+                        });
+                });
             }
         },
         // カテゴリー追加
@@ -307,7 +323,6 @@ export default {
                 .then((res) => {
                     this.$router.push({name: 'kanban'}, () => {});
                 });
-            
         },
         // タスク削除
         taskDelete() {

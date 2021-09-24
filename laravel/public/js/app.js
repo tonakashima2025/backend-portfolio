@@ -2798,7 +2798,8 @@ __webpack_require__.r(__webpack_exports__);
         start_date: '',
         end_date: '',
         incharge_user: '',
-        percentage: ''
+        percentage: '',
+        sort: ''
       }
     };
   },
@@ -2874,8 +2875,25 @@ __webpack_require__.r(__webpack_exports__);
           }
         });
         this.tasks.splice(deleteIndex, 1);
-        this.task.category_id = overTask.category_id;
+        this.task.category_id = overTask.category_id; // API接続（カテゴリー区分変更）
+        // axios.put('/api/tasks/' + this.task.id, this.task)
+        //     .then((res) => {
+        //         this.$router.go({name: 'kanban', force: true});
+        // });
+
         this.tasks.splice(addIndex, 0, this.task);
+        this.tasks.forEach(function (task, index) {
+          task.sort = index;
+        });
+        this.tasks.forEach(function (task) {
+          // API接続（ソートカラム更新）
+          axios.put('/api/tasks/' + task.id, task).then(function (res) {
+            _this4.$router.go({
+              name: 'kanban',
+              force: true
+            });
+          });
+        });
       }
     },
     // カテゴリー追加
@@ -62077,7 +62095,9 @@ var render = function() {
                       _vm._v(
                         "\n                    " +
                           _vm._s(task.name) +
-                          "\n                "
+                          " 並び順" +
+                          _vm._s(task.sort) +
+                          " \n                "
                       )
                     ]
                   )
