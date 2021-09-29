@@ -62091,8 +62091,6 @@ var render = function() {
                       _vm._v(
                         "\n                    " +
                           _vm._s(task.name) +
-                          " 並び順" +
-                          _vm._s(task.sort) +
                           " \n                "
                       )
                     ]

@@ -26,7 +26,7 @@
                         draggable="true"
                         @click="openModal(category,task)"
                     >
-                        {{ task.name }} 並び順{{ task.sort }} 
+                        {{ task.name }} 
                     </div>
                     <task-add @task-added="taskAdd" :category_id="category.id"></task-add>
                 </div>
