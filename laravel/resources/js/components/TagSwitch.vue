@@ -3,6 +3,7 @@
         <div id="nav">
             <router-link to="/kanban">Kanban</router-link> |
             <router-link to="/gantt">Gantt</router-link>
+            <p class="text-red-700 mt-1">※ タグをクリックすると表示が切り替え可能です</p>
         </div>
         <router-view/>
     </div>
