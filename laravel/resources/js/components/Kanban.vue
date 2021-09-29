@@ -210,6 +210,7 @@ export default {
                 });
                 this.tasks.splice(deleteIndex, 1);
                 this.task.category_id = overTask.category_id;
+                console.log(this.task);
                 // API接続（カテゴリー区分変更）
                 // axios.put('/api/tasks/' + this.task.id, this.task)
                 //     .then((res) => {

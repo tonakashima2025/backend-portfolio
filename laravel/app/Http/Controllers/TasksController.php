@@ -23,6 +23,7 @@ class TasksController extends Controller
     public function update(Request $request, $update_task) {
 
         $task = Task::find($update_task);
+        $task->category_id = $request->category_id;
         $task->name = $request->name;
         $task->start_date = $request->start_date;
         $task->end_date = $request->end_date;
