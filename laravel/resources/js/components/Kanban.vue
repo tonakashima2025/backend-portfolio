@@ -185,6 +185,16 @@ export default {
                 });
                 this.categories.splice(deleteIndex, 1);
                 this.categories.splice(addIndex, 0, this.category);
+                this.categories.forEach((category,index) => {
+                    category.sort = index;
+                });
+                this.categories.forEach((category) => {
+                    // API接続（ソートカラム更新）
+                    axios.put('/api/categories/' + category.id, category)
+                        .then((res) => {
+                            this.$router.go({name: 'kanban', force: true});
+                        });
+                });
             } else {
                 if (this.task.category_id !== overCategory.id && this.type === 'typeTask') {
                     let tasks = this.tasks.filter(task => task.category_id === overCategory.id);

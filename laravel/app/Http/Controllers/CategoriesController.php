@@ -9,7 +9,8 @@ class CategoriesController extends Controller
 {
     public function index() {
 
-        return Category::all();
+        // return Category::all();
+        return Category::orderBy("sort", "asc")->get();
     
     }
 
@@ -24,6 +25,8 @@ class CategoriesController extends Controller
         $category = Category::find($update_category);
         $category->name = $request->name;
         $category->collapsed = 1;
+        $category->sort = $request->sort;
+
         $category->save();
         // update($request->all());
 
