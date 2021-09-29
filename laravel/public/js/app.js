@@ -2889,7 +2889,6 @@ __webpack_require__.r(__webpack_exports__);
         });
         this.tasks.splice(deleteIndex, 1);
         this.task.category_id = overTask.category_id;
-        console.log(this.task);
         this.tasks.splice(addIndex, 0, this.task);
         this.tasks.forEach(function (task, index) {
           task.sort = index;
