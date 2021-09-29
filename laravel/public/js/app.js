@@ -62428,7 +62428,11 @@ var render = function() {
         [
           _c("router-link", { attrs: { to: "/kanban" } }, [_vm._v("Kanban")]),
           _vm._v(" |\n        "),
-          _c("router-link", { attrs: { to: "/gantt" } }, [_vm._v("Gantt")])
+          _c("router-link", { attrs: { to: "/gantt" } }, [_vm._v("Gantt")]),
+          _vm._v(" "),
+          _c("p", { staticClass: "text-red-700 mt-1" }, [
+            _vm._v("※ タグをクリックすると表示が切り替え可能です")
+          ])
         ],
         1
       ),
