@@ -211,17 +211,12 @@ export default {
                 this.tasks.splice(deleteIndex, 1);
                 this.task.category_id = overTask.category_id;
                 console.log(this.task);
-                // API接続（カテゴリー区分変更）
-                // axios.put('/api/tasks/' + this.task.id, this.task)
-                //     .then((res) => {
-                //         this.$router.go({name: 'kanban', force: true});
-                // });
                 this.tasks.splice(addIndex, 0, this.task);
                 this.tasks.forEach((task,index) => {
                     task.sort = index;
                 });
                 this.tasks.forEach((task) => {
-                    // API接続（ソートカラム更新）
+                    // API接続（カテゴリー区分・ソートカラム更新）
                     axios.put('/api/tasks/' + task.id, task)
                         .then((res) => {
                             this.$router.go({name: 'kanban', force: true});

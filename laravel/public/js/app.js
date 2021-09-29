@@ -2876,18 +2876,13 @@ __webpack_require__.r(__webpack_exports__);
         });
         this.tasks.splice(deleteIndex, 1);
         this.task.category_id = overTask.category_id;
-        console.log(this.task); // API接続（カテゴリー区分変更）
-        // axios.put('/api/tasks/' + this.task.id, this.task)
-        //     .then((res) => {
-        //         this.$router.go({name: 'kanban', force: true});
-        // });
-
+        console.log(this.task);
         this.tasks.splice(addIndex, 0, this.task);
         this.tasks.forEach(function (task, index) {
           task.sort = index;
         });
         this.tasks.forEach(function (task) {
-          // API接続（ソートカラム更新）
+          // API接続（カテゴリー区分・ソートカラム更新）
           axios.put('/api/tasks/' + task.id, task).then(function (res) {
             _this4.$router.go({
               name: 'kanban',
