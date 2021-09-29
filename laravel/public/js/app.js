@@ -2157,8 +2157,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       categories: [],
       tasks: [],
       // カレンダー基礎情報
-      start_month: '2021-07',
-      end_month: '2021-11',
+      start_month: '2021-09',
+      end_month: '2022-01',
       block_size: 30,
       block_number: 0,
       calendars: [],
