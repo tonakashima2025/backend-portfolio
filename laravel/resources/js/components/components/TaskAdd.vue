@@ -47,8 +47,8 @@ export default {
         showInput: function() {
             this.show = true;
             this.$nextTick(function () {
-                this.focusInput();
-            })
+                this.focusInput()
+            });
             // Vue.nextTick(() => {
             //     this.focusInput();
             // });

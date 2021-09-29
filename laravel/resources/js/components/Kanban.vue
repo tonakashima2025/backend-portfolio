@@ -26,7 +26,7 @@
                         draggable="true"
                         @click="openModal(category,task)"
                     >
-                        {{ task.name }}
+                        {{ task.name }} 
                     </div>
                     <task-add @task-added="taskAdd" :category_id="category.id"></task-add>
                 </div>
@@ -35,7 +35,7 @@
                 <div class="bg-gray-200 m-2 p-2 text-sm">
                     <div
                         v-if="!show_category_input"
-                        @click="show_category_input=true"
+                        @click="showInputCategory"
                     >
                         カテゴリーを追加
                     </div>
@@ -45,6 +45,7 @@
                             class="w-full p-2" 
                             placeholder="新しいカテゴリー名を追加してください"
                             v-model="category_name"
+                            ref="inputCategory"
                         >
                         <div class="flex m-2">
                             <button 
@@ -86,13 +87,13 @@
                         <label class="text-xs">
                             開始日
                         </label>
-                        <input class="border rounded-lg px-4 py-2 text-xs" v-model="form.start_date">
+                        <input type="date" class="border rounded-lg px-4 py-2 text-xs" v-model="form.start_date">
                     </div>
                     <div class="my-4">
                         <label class="text-xs">
                             終了締切日
                         </label>
-                        <input class="border rounded-lg px-4 py-2 text-xs" v-model="form.end_date">
+                        <input type="date" class="border rounded-lg px-4 py-2 text-xs" v-model="form.end_date">
                     </div>
                     <button 
                         class="px-4 py-2 bg-green-500 hover:bg-green-700 text-white rounded-lg mr-2 font-bold text-xs"
@@ -140,7 +141,8 @@ export default {
                 start_date:'',
                 end_date:'',
                 incharge_user:'',
-                percentage:''
+                percentage:'',
+                sort: '',
             },
         }
     },
@@ -208,10 +210,30 @@ export default {
                 });
                 this.tasks.splice(deleteIndex, 1);
                 this.task.category_id = overTask.category_id;
+                console.log(this.task);
                 this.tasks.splice(addIndex, 0, this.task);
+                this.tasks.forEach((task,index) => {
+                    task.sort = index;
+                });
+                this.tasks.forEach((task) => {
+                    // API接続（カテゴリー区分・ソートカラム更新）
+                    axios.put('/api/tasks/' + task.id, task)
+                        .then((res) => {
+                            this.$router.go({name: 'kanban', force: true});
+                        });
+                });
             }
         },
         // カテゴリー追加
+        showInputCategory: function() {
+            this.show_category_input=true;
+            this.$nextTick(function () {
+                this.focusInputCategory();
+            })
+        },
+        focusInputCategory: function() {
+            this.$refs.inputCategory.focus();
+        },
         categoryAdd: function() {
             if (this.category_name !=='') {
                 this.category = {
@@ -227,7 +249,7 @@ export default {
         apiCategoryAdd: function() {
             axios.post('/api/categories', this.category)
                 .then((res) => {
-                    this.$router.push({name: 'kanban'}, () => {});
+                    this.$router.go({name: 'kanban', force: true});
                 });
         },
         closeCategoryInput: function() {
@@ -275,7 +297,7 @@ export default {
         apiTaskAdd: function() {
             axios.post('/api/tasks', this.task)
                 .then((res) => {
-                    this.$router.push({name: 'kanban'}, () => {});
+                    this.$router.go({name: 'kanban', force: true});
                 });
         },
         // タスク更新
@@ -297,7 +319,6 @@ export default {
                 .then((res) => {
                     this.$router.push({name: 'kanban'}, () => {});
                 });
-            
         },
         // タスク削除
         taskDelete() {

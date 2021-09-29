@@ -2148,9 +2148,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Gantt',
@@ -2503,9 +2500,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.tasks.push(this.form); // API接続（タスク追加）
 
       axios.post('/api/tasks', this.form).then(function (res) {
-        _this5.$router.push({
-          name: 'gantt'
-        }, function () {});
+        _this5.$router.go({
+          name: 'gantt',
+          force: true
+        });
       });
       this.form = {};
       this.show = false;
@@ -2600,7 +2598,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }, category));
 
         _this9.tasks.map(function (task) {
-          if (task.category_id === category.id && category.collapsed === 0) {
+          if (task.category_id === category.id && category.collapsed === 1) {
             lists.push(_objectSpread({
               cat: 'task'
             }, task));
@@ -2773,6 +2771,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2799,7 +2798,8 @@ __webpack_require__.r(__webpack_exports__);
         start_date: '',
         end_date: '',
         incharge_user: '',
-        percentage: ''
+        percentage: '',
+        sort: ''
       }
     };
   },
@@ -2876,10 +2876,32 @@ __webpack_require__.r(__webpack_exports__);
         });
         this.tasks.splice(deleteIndex, 1);
         this.task.category_id = overTask.category_id;
+        console.log(this.task);
         this.tasks.splice(addIndex, 0, this.task);
+        this.tasks.forEach(function (task, index) {
+          task.sort = index;
+        });
+        this.tasks.forEach(function (task) {
+          // API接続（カテゴリー区分・ソートカラム更新）
+          axios.put('/api/tasks/' + task.id, task).then(function (res) {
+            _this4.$router.go({
+              name: 'kanban',
+              force: true
+            });
+          });
+        });
       }
     },
     // カテゴリー追加
+    showInputCategory: function showInputCategory() {
+      this.show_category_input = true;
+      this.$nextTick(function () {
+        this.focusInputCategory();
+      });
+    },
+    focusInputCategory: function focusInputCategory() {
+      this.$refs.inputCategory.focus();
+    },
     categoryAdd: function categoryAdd() {
       if (this.category_name !== '') {
         this.category = {
@@ -2895,9 +2917,10 @@ __webpack_require__.r(__webpack_exports__);
       var _this5 = this;
 
       axios.post('/api/categories', this.category).then(function (res) {
-        _this5.$router.push({
-          name: 'kanban'
-        }, function () {});
+        _this5.$router.go({
+          name: 'kanban',
+          force: true
+        });
       });
     },
     closeCategoryInput: function closeCategoryInput() {
@@ -2950,9 +2973,10 @@ __webpack_require__.r(__webpack_exports__);
       var _this8 = this;
 
       axios.post('/api/tasks', this.task).then(function (res) {
-        _this8.$router.push({
-          name: 'kanban'
-        }, function () {});
+        _this8.$router.go({
+          name: 'kanban',
+          force: true
+        });
       });
     },
     // タスク更新
@@ -61707,10 +61731,8 @@ var render = function() {
             },
             [
               _vm.create_mode
-                ? _c("h2", { staticClass: "font-bold" }, [_vm._v("タスク追加")])
-                : _c("h2", { staticClass: "font-bold" }, [
-                    _vm._v("タスク更新")
-                  ]),
+                ? _c("h2", { staticClass: "font-bold" }, [_vm._v("追加")])
+                : _c("h2", { staticClass: "font-bold" }, [_vm._v("更新")]),
               _vm._v(" "),
               _c("div", { staticClass: "my-4" }, [
                 _c(
@@ -61922,7 +61944,7 @@ var render = function() {
               _vm.create_mode
                 ? _c(
                     "div",
-                    { staticClass: "flex items-center justify-between" },
+                    { staticClass: "flex items-center justify-around" },
                     [
                       _c(
                         "button",
@@ -61932,12 +61954,8 @@ var render = function() {
                           on: { click: _vm.saveTask }
                         },
                         [
-                          _vm._v(
-                            "\n                        ★\n                        "
-                          ),
-                          _vm._v(" "),
                           _c("span", { staticClass: "font-bold text-xs" }, [
-                            _vm._v("タスク追加")
+                            _vm._v("追加")
                           ])
                         ]
                       )
@@ -61945,7 +61963,7 @@ var render = function() {
                   )
                 : _c(
                     "div",
-                    { staticClass: "flex items-center justify-between" },
+                    { staticClass: "flex items-center justify-around" },
                     [
                       _c(
                         "button",
@@ -61959,14 +61977,10 @@ var render = function() {
                           }
                         },
                         [
-                          _vm._v(
-                            "\n                        ★\n                        "
-                          ),
-                          _vm._v(" "),
                           _c(
                             "span",
                             { staticClass: "font-bold text-xs text-white" },
-                            [_vm._v("タスク更新")]
+                            [_vm._v("更新")]
                           )
                         ]
                       ),
@@ -61983,14 +61997,10 @@ var render = function() {
                           }
                         },
                         [
-                          _vm._v(
-                            "\n                        ★\n                        "
-                          ),
-                          _vm._v(" "),
                           _c(
                             "span",
                             { staticClass: "text-xs font-bold text-white" },
-                            [_vm._v("タスク削除")]
+                            [_vm._v("削除")]
                           )
                         ]
                       )
@@ -62081,7 +62091,7 @@ var render = function() {
                       _vm._v(
                         "\n                    " +
                           _vm._s(task.name) +
-                          "\n                "
+                          " \n                "
                       )
                     ]
                   )
@@ -62100,21 +62110,11 @@ var render = function() {
         _c("div", { staticStyle: { "min-width": "400px" } }, [
           _c("div", { staticClass: "bg-gray-200 m-2 p-2 text-sm" }, [
             !_vm.show_category_input
-              ? _c(
-                  "div",
-                  {
-                    on: {
-                      click: function($event) {
-                        _vm.show_category_input = true
-                      }
-                    }
-                  },
-                  [
-                    _vm._v(
-                      "\n                    カテゴリーを追加\n                "
-                    )
-                  ]
-                )
+              ? _c("div", { on: { click: _vm.showInputCategory } }, [
+                  _vm._v(
+                    "\n                    カテゴリーを追加\n                "
+                  )
+                ])
               : _c("div", [
                   _c("input", {
                     directives: [
@@ -62125,6 +62125,7 @@ var render = function() {
                         expression: "category_name"
                       }
                     ],
+                    ref: "inputCategory",
                     staticClass: "w-full p-2",
                     attrs: {
                       type: "text",
@@ -62302,6 +62303,7 @@ var render = function() {
                     }
                   ],
                   staticClass: "border rounded-lg px-4 py-2 text-xs",
+                  attrs: { type: "date" },
                   domProps: { value: _vm.form.start_date },
                   on: {
                     input: function($event) {
@@ -62331,6 +62333,7 @@ var render = function() {
                     }
                   ],
                   staticClass: "border rounded-lg px-4 py-2 text-xs",
+                  attrs: { type: "date" },
                   domProps: { value: _vm.form.end_date },
                   on: {
                     input: function($event) {
@@ -62401,7 +62404,7 @@ var render = function() {
         [
           _c("router-link", { attrs: { to: "/kanban" } }, [_vm._v("Kanban")]),
           _vm._v(" |\n        "),
-          _c("router-link", { attrs: { to: "/Gantt" } }, [_vm._v("Gantt")])
+          _c("router-link", { attrs: { to: "/gantt" } }, [_vm._v("Gantt")])
         ],
         1
       ),

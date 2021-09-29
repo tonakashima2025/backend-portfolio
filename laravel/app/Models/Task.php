@@ -13,5 +13,6 @@ class Task extends Model
         'end_date',
         'incharge_user',
         'percentage',
+        'sort',
     ];
 }

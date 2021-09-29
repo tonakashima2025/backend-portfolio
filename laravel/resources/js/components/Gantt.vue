@@ -155,8 +155,8 @@
                 <div class="overlay" v-show="show" @click="show=false">
                 </div>
                 <div class="content" v-show="show">
-                    <h2 class="font-bold" v-if="create_mode">タスク追加</h2>
-                    <h2 class="font-bold" v-else>タスク更新</h2>
+                    <h2 class="font-bold" v-if="create_mode">追加</h2>
+                    <h2 class="font-bold" v-else>更新</h2>
                     <div class="my-4">
                         <label for="" class="text-xs mr-2">カテゴリー：</label>
                         <select name="" id="" class="text-xs border px-4 py-2 rounded-lg"
@@ -199,32 +199,29 @@
                         <input type="number" class="text-xs border rounded-lg px-4 py-2"
                             v-model="form.percentage">
                     </div>
-                    <div v-if="create_mode" class="flex items-center justify-between">
+                    <div v-if="create_mode" class="flex items-center justify-around">
                         <button class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg flex items-center"
                             @click="saveTask">
-                            ★
                             <!-- <svg class="w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                             </svg> -->
-                            <span class="font-bold text-xs">タスク追加</span>
+                            <span class="font-bold text-xs">追加</span>
                         </button>
                     </div>
-                    <div v-else  class="flex items-center justify-between">
+                    <div v-else  class="flex items-center justify-around">
                         <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg flex items-center"
                             @click="updateTask(form.id)">
-                            ★
                             <!-- <svg class="w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                             </svg> -->
-                            <span class="font-bold text-xs text-white">タスク更新</span>
+                            <span class="font-bold text-xs text-white">更新</span>
                         </button>
                         <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded-lg flex items-center ml-2"
                             @click="deleteTask(form.id)">
-                            ★
                             <!-- <svg class="w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                             </svg> -->
-                            <span class="text-xs font-bold text-white">タスク削除</span>
+                            <span class="text-xs font-bold text-white">削除</span>
                         </button>
                     </div>
                 </div>
@@ -544,7 +541,7 @@ export default {
             // API接続（タスク追加）
             axios.post('/api/tasks', this.form)
                 .then((res) => {
-                    this.$router.push({name: 'gantt'}, () => {});
+                    this.$router.go({name: 'gantt', force: true});
                 });
 
             this.form = {};
@@ -629,7 +626,7 @@ export default {
             this.categories.map(category => {
                 lists.push({ cat: 'category', ...category });
                 this.tasks.map(task => {
-                    if(task.category_id === category.id && category.collapsed === 0) {
+                    if(task.category_id === category.id && category.collapsed === 1) {
                         lists.push({ cat: 'task', ...task});
                     }
                 })
