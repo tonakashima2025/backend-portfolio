@@ -278,7 +278,8 @@ export default {
                 start_date: '',
                 end_date: '',
                 incharge_user: '',
-                percentage: 0
+                percentage: 0,
+                sort: '',
             },
         }
     },
@@ -403,6 +404,16 @@ export default {
                         this.tasks.splice(deleteIndex, 1);
                         this.draggingTask['category_id'] = dragoveredTask['category_id'];
                         this.tasks.splice(addIndex, 0, this.draggingTask);
+                        this.tasks.forEach((task,index) => {
+                            task.sort = index;
+                        });
+                        this.tasks.forEach((task) => {
+                            // API接続（カテゴリー区分・ソートカラム更新）
+                            axios.put('/api/tasks/' + task.id, task)
+                                .then((res) => {
+                                    this.$router.go({name: 'kanban', force: true});
+                                });
+                        });
                     }
                 }
             }

@@ -220,7 +220,6 @@ export default {
                 });
                 this.tasks.splice(deleteIndex, 1);
                 this.task.category_id = overTask.category_id;
-                console.log(this.task);
                 this.tasks.splice(addIndex, 0, this.task);
                 this.tasks.forEach((task,index) => {
                     task.sort = index;
