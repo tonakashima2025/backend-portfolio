@@ -2846,6 +2846,18 @@ __webpack_require__.r(__webpack_exports__);
         });
         this.categories.splice(deleteIndex, 1);
         this.categories.splice(addIndex, 0, this.category);
+        this.categories.forEach(function (category, index) {
+          category.sort = index;
+        });
+        this.categories.forEach(function (category) {
+          // API接続（ソートカラム更新）
+          axios.put('/api/categories/' + category.id, category).then(function (res) {
+            _this3.$router.go({
+              name: 'kanban',
+              force: true
+            });
+          });
+        });
       } else {
         if (this.task.category_id !== overCategory.id && this.type === 'typeTask') {
           var tasks = this.tasks.filter(function (task) {
