@@ -610,7 +610,7 @@ export default {
         scrollDistance() {
             let start_date = moment(this.start_month);
             let between_days = this.today.diff(start_date, 'days');
-            return (between_days + 1) * this.block_size - this.calendarViewWidth / 2;
+            return (between_days + 1) * this.block_size - (this.calendarViewWidth / 2);
         },
         // カテゴリー・タスクデータのネスト化
         lists() {
