@@ -2143,11 +2143,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Gantt',
@@ -2260,9 +2255,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     // ウィンドウサイズ対応・タスクバー領域表示
     getWindowSize: function getWindowSize() {
       this.inner_width = window.innerWidth;
-      this.inner_height = window.innerHeight;
-      this.task_width = this.$refs.task.offsetWidth;
-      this.task_height = this.$refs.task.offsetHeight;
+      this.inner_height = window.innerHeight; // this.task_width = this.$refs.task.offsetWidth;
+
+      this.task_width = 496; // this.task_height = this.$refs.task.offsetHeight;
+
+      this.task_height = 80;
       this.header_height = this.$refs.header.offsetHeight;
     },
     windowSizeCheck: function windowSizeCheck() {
@@ -2270,7 +2267,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       if (event.deltaY > 0 && height * 40 > this.calendarViewHeight) {
         this.position_id++;
-      } else if (event.deltaY < 0 && this.position_id != 0) {
+      } else if (event.deltaY < 0 && this.position_id !== 0) {
         this.position_id--;
       }
     },
@@ -2564,23 +2561,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.show = false;
     }
   },
-  mounted: function mounted() {
-    var _this8 = this;
-
-    this.getCalendar();
-    this.getWindowSize();
-    this.$nextTick(function () {
-      _this8.todayPosition();
-    });
-    window.addEventListener('resize', this.getWindowSize);
-    window.addEventListener('wheel', this.windowSizeCheck);
-    window.addEventListener('mousemove', this.mouseMove);
-    window.addEventListener('mouseup', this.stopDrag);
-    window.addEventListener('mousemove', this.mouseChange); // API接続（一覧取得）
-
-    this.getCategories();
-    this.getTasks();
-  },
   computed: {
     // ウィンドウサイズ対応
     calendarViewWidth: function calendarViewWidth() {
@@ -2602,7 +2582,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     // カテゴリー・タスクデータのネスト化
     lists: function lists() {
-      var _this9 = this;
+      var _this8 = this;
 
       var lists = [];
       this.categories.map(function (category) {
@@ -2610,7 +2590,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           cat: 'category'
         }, category));
 
-        _this9.tasks.map(function (task) {
+        _this8.tasks.map(function (task) {
           if (task.category_id === category.id && category.collapsed === 1) {
             lists.push(_objectSpread({
               cat: 'task'
@@ -2622,7 +2602,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     // タスクバー表示
     taskBars: function taskBars() {
-      var _this10 = this;
+      var _this9 = this;
 
       var start_date = moment__WEBPACK_IMPORTED_MODULE_0___default()(this.start_month);
       var top = 10;
@@ -2639,11 +2619,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           between = date_to.diff(date_from, 'days');
           between++;
           start = date_from.diff(start_date, 'days');
-          left = start * _this10.block_size;
+          left = start * _this9.block_size;
           style = {
             top: "".concat(top, "px"),
             left: "".concat(left, "px"),
-            width: "".concat(_this10.block_size * between, "px")
+            width: "".concat(_this9.block_size * between, "px")
           };
         }
 
@@ -2654,6 +2634,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         };
       });
     }
+  },
+  mounted: function mounted() {
+    var _this10 = this;
+
+    this.getCalendar();
+    this.getWindowSize();
+    this.$nextTick(function () {
+      _this10.todayPosition();
+    });
+    window.addEventListener('resize', this.getWindowSize);
+    window.addEventListener('wheel', this.windowSizeCheck);
+    window.addEventListener('mousemove', this.mouseMove);
+    window.addEventListener('mouseup', this.stopDrag);
+    window.addEventListener('mousemove', this.mouseChange); // API接続（一覧取得）
+
+    this.getCategories();
+    this.getTasks();
   }
 });
 
@@ -61532,7 +61529,7 @@ var render = function() {
                         calendar.calendar * _vm.block_size +
                         "px;left:" +
                         calendar.start_block_number * _vm.block_size +
-                        "px"
+                        "px;"
                     },
                     [
                       _vm._v(
@@ -61612,7 +61609,7 @@ var render = function() {
                           day.block_number * _vm.block_size +
                           "px;height:" +
                           _vm.calendarViewHeight +
-                          "px"
+                          "px;"
                       })
                     ])
                   }),
@@ -61632,7 +61629,7 @@ var render = function() {
                 _vm.calendarViewWidth +
                 "px;height:" +
                 _vm.calendarViewHeight +
-                "px",
+                "px;",
               attrs: { id: "gantt-bar-area" }
             },
             _vm._l(_vm.taskBars, function(bar, index) {
