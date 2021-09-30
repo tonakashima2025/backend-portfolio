@@ -95,7 +95,7 @@
                     <div id="gantt-year-month" class="relative h-8">
                         <div v-for="(calendar,index) in calendars" :key="index">
                             <div class="bg-indigo-700 text-white border-b border-r border-t h-8 absolute font-bold text-sm flex items-center justify-center"
-                                :style="`width:${calendar.calendar*block_size}px;left:${calendar.start_block_number*block_size}px`">
+                                :style="`width:${calendar.calendar * block_size}px;left:${calendar.start_block_number * block_size}px;`">
                                 {{ calendar.date }}
                             </div>
                         </div>
@@ -104,7 +104,7 @@
                         <div v-for="(calendar,index) in calendars" :key="index">
                             <div v-for="(day,index) in calendar.days" :key="index">
                                 <div class="border-r h-12 absolute flex items-center justify-center flex-col font-bold text-xs"
-                                    :style="`width:${block_size}px;left:${day.block_number*block_size}px;`"
+                                    :style="`width:${block_size}px;left:${day.block_number * block_size}px;`"
                                     :class="{'bg-blue-100': day.dayOfWeek === '土', 'bg-red-100': day.dayOfWeek === '日', 'bg-red-600 text-yellow-500': calendar.year === today.year() && calendar.month === today.month() && day.day === today.date()}">
                                     <span>{{ day.day }}</span>
                                     <span>{{ day.dayOfWeek }}</span>
@@ -117,14 +117,14 @@
                             <div v-for="(day,index) in calendar.days" :key="index">
                                 <div class="border-r border-b absolute"
                                     :class="{'bg-blue-100': day.dayOfWeek === '土', 'bg-red-100': day.dayOfWeek === '日'}"
-                                    :style="`width:${block_size}px;left:${day.block_number*block_size}px;height:${calendarViewHeight}px`">
+                                    :style="`width:${block_size}px;left:${day.block_number*block_size}px;height:${calendarViewHeight}px;`">
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div id="gantt-bar-area" class="relative"
-                    :style="`width:${calendarViewWidth}px;height:${calendarViewHeight}px`">
+                    :style="`width:${calendarViewWidth}px;height:${calendarViewHeight}px;`">
                     <div v-for="(bar,index) in taskBars" :key="index">
                         <div class="rounded-lg absolute h-5 bg-yellow-100"
                             v-if="bar.task.cat === 'task'"
@@ -169,11 +169,6 @@
                             </option>
                         </select>
                     </div>
-                    <!-- <div class="my-4">
-                        <label for="" class="text-xs mr-2">ID：</label>
-                        <input type="number" class="text-xs border rounded-lg px-4 py-2"
-                            v-model="form.id">
-                    </div> -->
                     <div class="my-4">
                         <label for="" class="text-xs mr-2">タスク名：</label>
                         <input type="text" class="text-xs border rounded-lg px-4 py-2"
@@ -340,15 +335,17 @@ export default {
         getWindowSize() {
             this.inner_width = window.innerWidth;
             this.inner_height = window.innerHeight;
-            this.task_width = this.$refs.task.offsetWidth;
-            this.task_height = this.$refs.task.offsetHeight;
+            // this.task_width = this.$refs.task.offsetWidth;
+            this.task_width = 496;
+            // this.task_height = this.$refs.task.offsetHeight;
+            this.task_height = 80;
             this.header_height = this.$refs.header.offsetHeight;
         },
         windowSizeCheck() {
             let height = this.lists.length - this.position_id;
             if(event.deltaY > 0 && height * 40 > this.calendarViewHeight) {
                 this.position_id++;
-            } else if(event.deltaY < 0 && this.position_id != 0) {
+            } else if(event.deltaY < 0 && this.position_id !== 0) {
                 this.position_id--;
             }
         },
@@ -596,22 +593,6 @@ export default {
             this.show = false;
         }
     },
-    mounted: function() {
-        this.getCalendar();
-        this.getWindowSize();
-        this.$nextTick(() => {
-            this.todayPosition();
-        });
-        window.addEventListener('resize', this.getWindowSize);
-        window.addEventListener('wheel', this.windowSizeCheck);
-        window.addEventListener('mousemove', this.mouseMove);
-        window.addEventListener('mouseup', this.stopDrag);
-        window.addEventListener('mousemove', this.mouseChange);
-
-        // API接続（一覧取得）
-        this.getCategories();
-        this.getTasks();
-    },
     computed: {
         // ウィンドウサイズ対応
         calendarViewWidth() {
@@ -674,7 +655,23 @@ export default {
                 }
             })
         },
-    }
+    },
+    mounted: function() {
+        this.getCalendar();
+        this.getWindowSize();
+        this.$nextTick(() => {
+            this.todayPosition();
+        });
+        window.addEventListener('resize', this.getWindowSize);
+        window.addEventListener('wheel', this.windowSizeCheck);
+        window.addEventListener('mousemove', this.mouseMove);
+        window.addEventListener('mouseup', this.stopDrag);
+        window.addEventListener('mousemove', this.mouseChange);
+
+        // API接続（一覧取得）
+        this.getCategories();
+        this.getTasks();
+    },
 }
 </script>
 
